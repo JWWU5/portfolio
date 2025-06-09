@@ -1,4 +1,6 @@
-import '../CSS/homepage.css'
+import '../CSS/homepage.css';
+
+import { useNavigate } from 'react-router-dom';
 
 import coverImage from '../assets/cover.PNG';
 import vARtebraeImage from '../assets/vARtebrae.png';
@@ -9,6 +11,7 @@ import forestTitle from '../assets/forest-title.PNG';
 import forestCover from '../assets/forest-cover.png';
 
 function HomePage() {
+  const navigate = useNavigate();
 
   return (
     <>
@@ -32,25 +35,23 @@ function HomePage() {
 
       <section id="project">
         <div className="card-container">
-          <a href="projects/vARtebrae.html">
-            <div className="card">
-              <div className="wrapper">
-                <img src={vARtebraeImage} className="cover-image" alt="vARtebrae" />
-              </div>
-              <img src={vARtebraeTitle} className="title" alt="vARtebrae Title" />
-              <img src={vARtebraeCover} className="character" alt="vARtebrae Cover" />
+          <div className="card" onClick={() => navigate('/projects-vARtebrae')} style={{ cursor: 'pointer' }}>
+            <div className="wrapper">
+              <img src={vARtebraeImage} className="cover-image" alt="vARtebrae" />
             </div>
-          </a>
-          
-          <a href="projects/forest.html">
-            <div className="card">
-              <div className="wrapper">
-                <img src={forestImage} className="cover-image" alt="Forest" />
-              </div>
-              <img src={forestTitle} className="title" alt="Forest Title" />
-              <img src={forestCover} className="character" alt="Forest Cover" />
+            <img src={vARtebraeTitle} className="title" alt="vARtebrae Title" />
+            <img src={vARtebraeCover} className="character" alt="vARtebrae Cover" />
+          </div>
+        
+
+          <div className="card" onClick={() => navigate('/projects-virtual-forest')} style={{ cursor: 'pointer' }}>
+            <div className="wrapper">
+              <img src={forestImage} className="cover-image" alt="Forest" />
             </div>
-          </a>
+            <img src={forestTitle} className="title" alt="Forest Title" />
+            <img src={forestCover} className="character" alt="Forest Cover" />
+          </div>
+
         </div>
       </section>
     </>
