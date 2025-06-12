@@ -33,7 +33,7 @@ function HomePage() {
         </p>
       </section>
 
-      <section id="project">
+      <section id="projects">
         <div className="card-container">
           <div className="card" onClick={() => navigate('/projects-vARtebrae')} style={{ cursor: 'pointer' }}>
             <div className="wrapper">

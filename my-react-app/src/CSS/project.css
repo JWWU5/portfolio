@@ -1,4 +1,4 @@
-body, html {
+body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
@@ -6,13 +6,55 @@ body, html {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-  }
-  
-  section {
+}
+
+/*section {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-  }
+}*/
+
+#project {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: #ffeda1;
+}
+
+#project .cover-image {
+    grid-area: 1 / 1;
+    transform: scale(0.8);
+    transform-origin: center;
+}
+
+#project h1 {
+    font-family: "Bruttall", sans-serif;
+    font-size: 8rem;
+    letter-spacing: 4rem;
+    grid-area: 1 / 1; /* 文字也放在第一行第一列（与图片重叠） */
+    z-index: 1; /* 确保文字在图片上方 */
+    color: #caf4fa;
+    padding: 20px; 
+    text-shadow:
+    -5px -5px 0 #89b1f6,
+     0   -5px 0 #89b1f6,
+     5px -5px 0 #89b1f6,
+    -5px  0   0 #89b1f6,
+     5px  0   0 #89b1f6,
+    -5px  5px 0 #89b1f6,
+     0    5px 0 #89b1f6,
+     5px  5px 0 #89b1f6;
+
+}
+
+#graph {
+    background-color: #fce1a2;
+}
+
+#content {
+    background-color: #ebc56c;
+}
+
