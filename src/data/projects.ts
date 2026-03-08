@@ -56,11 +56,31 @@ export const PROJECTS: Project[] = [
     ],
     inspiration: "Traditional physiotherapy training relies on verbal feedback, while **internal bone movement remains invisible**. By integrating physical CPR training devices with a Unity-based MR application on Meta Quest 3, I designed a system that **visualises bone activities, and force data in real time**.",
     features: [
-      { title: "Calibration", detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model." },
-      { title: "Up-down Movement", detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization." },
-      { title: "Transverse Rotation", detail: "Immersive feedback for rotational forces applied to the vertebral segments." },
-      { title: "Sagittal Rotation", detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy." },
-      { title: "Pressure Visualisation", detail: "Dynamic heatmaps mapping sensor data to virtual bone surfaces in real-time." }
+      { 
+        title: "Calibration", 
+        detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model.",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      { 
+        title: "Up-down Movement", 
+        detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization.",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      { 
+        title: "Transverse Rotation", 
+        detail: "Immersive feedback for rotational forces applied to the vertebral segments.",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      { 
+        title: "Sagittal Rotation", 
+        detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy.",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      { 
+        title: "Pressure Visualisation", 
+        detail: "A force-over-time graph visualizes how pressure changes throughout the interaction. Users can load different patterns or techniques and compare their input with ideal benchmarks, supporting iterative practice and skill refinement.",
+        videoUrl: "mr-visualisation.mp4"
+      }
     ],
     future: [
       {

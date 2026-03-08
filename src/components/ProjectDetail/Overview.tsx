@@ -19,15 +19,17 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
           <div className="lg:col-span-7 space-y-12">
             <div className="space-y-8">
               <p className={`text-lg leading-relaxed ${theme.muted}`}>{renderBold(project.concept)}</p>
-              <p className={`italic font-normal ${theme.text} border-l-2 border-[#0D9488] pl-8 py-2`}>
+              <p className={`italic font-normal ${theme.text} border-l-2 border-[#8c7355] pl-8 py-2`}>
                 {project.interaction}
               </p>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div 
-              className={`relative aspect-video bg-black rounded-2xl overflow-hidden shadow-xl cursor-pointer group ${theme.border} border`}
+            <motion.div 
+              whileHover={{ y: -10 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className={`relative aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] cursor-pointer group`}
               onClick={() => setIsVideoOpen(true)}
             >
               <iframe 
@@ -41,15 +43,19 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
                   <Play className="w-6 h-6 fill-current" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Category and Year Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8 mt-8">
           <div className="space-y-2">
             <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Category</span>
             <p className="text-sm uppercase tracking-widest">{project.category}</p>
+          </div>
+          <div className="space-y-2">
+            <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Tech Stack</span>
+            <p className="text-sm uppercase tracking-widest">Mixed Reality / Unity / Meta Quest 3 / MedTech</p>
           </div>
           <div className="space-y-2">
             <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Year</span>

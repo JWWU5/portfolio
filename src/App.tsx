@@ -29,27 +29,27 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0FDFA] text-[#134E4A] selection:bg-[#0D9488] selection:text-white">
+    <div className="min-h-screen text-[#4a4a4a] selection:bg-[#8c7355] selection:text-white">
       {/* Navigation */}
       {!selectedProjectId && (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled 
-            ? "bg-white/80 backdrop-blur-md py-4 shadow-sm border-b border-teal-100" 
+            ? "bg-white/80 backdrop-blur-md py-4 shadow-sm border-b border-[#e5e1d8]" 
             : "bg-transparent py-8"
         }`}>
           <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
             <button 
               onClick={() => setSelectedProjectId(null)}
-              className="text-xl tracking-[0.2em] font-serif uppercase cursor-pointer text-[#134E4A]"
+              className="text-xl tracking-[0.2em] font-serif uppercase cursor-pointer text-[#4a4a4a]"
             >
-              Artisanal<span className="italic text-[#0D9488]">Tech</span>
+              Artisanal<span className="italic text-[#8c7355]">Tech</span>
             </button>
-            <div className="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.2em] font-medium text-[#5EEAD4]">
-              <a href="#work" className="hover:text-[#0D9488] transition-colors">The Work</a>
-              <a href="#research" className="hover:text-[#0D9488] transition-colors">Research</a>
-              <a href="#future" className="hover:text-[#0D9488] transition-colors">Future</a>
+            <div className="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.2em] font-medium text-[#8c7355]">
+              <a href="#work" className="hover:text-[#4a4a4a] transition-colors">The Work</a>
+              <a href="#research" className="hover:text-[#4a4a4a] transition-colors">Research</a>
+              <a href="#future" className="hover:text-[#4a4a4a] transition-colors">Future</a>
             </div>
-            <button className="md:hidden text-[#134E4A]">
+            <button className="md:hidden text-[#4a4a4a]">
               <Plus className="w-6 h-6" />
             </button>
           </div>

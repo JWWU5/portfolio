@@ -34,7 +34,7 @@ export const FutureWork: React.FC<FutureWorkProps> = ({ project, theme }) => {
   );
 };
 
-const FlipCard = ({ item, index, theme }: { item: any, index: number, theme: any }) => {
+const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, index, theme }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -64,12 +64,12 @@ const FlipCard = ({ item, index, theme }: { item: any, index: number, theme: any
           <h3 className={`text-2xl font-medium font-sans ${theme.text}`}>
             {item.title}
           </h3>
-          <div className="absolute bottom-8 w-12 h-1 bg-[#0D9488]" />
+          <div className="absolute bottom-8 w-12 h-1 bg-[#8c7355]" />
         </div>
 
-        {/* Back Face (Solution) - Dark Theme */}
+        {/* Back Face (Solution) - Brown Theme */}
         <div 
-          className="absolute inset-0 rounded-2xl p-8 flex flex-col items-center justify-center text-center bg-[#115E59] border border-[#115E59]"
+          className="absolute inset-0 rounded-2xl p-8 flex flex-col items-center justify-center text-center bg-[#8c7355] border border-[#8c7355]"
           style={{ 
             transform: 'rotateY(180deg)',
             backfaceVisibility: 'hidden'
@@ -78,8 +78,8 @@ const FlipCard = ({ item, index, theme }: { item: any, index: number, theme: any
           <h3 className="text-lg mb-6 font-medium font-sans text-white">
             {item.title}
           </h3>
-          <div className="w-8 h-px mb-6 bg-[#0D9488]" />
-          <p className="text-sm leading-relaxed text-[#CCFBF1]">
+          <div className="w-8 h-px mb-6 bg-[#8c7355]" />
+          <p className="text-sm leading-relaxed text-[#fdfcf8]">
             {item.content}
           </p>
         </div>

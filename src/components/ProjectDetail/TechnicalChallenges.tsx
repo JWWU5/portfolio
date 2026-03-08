@@ -39,8 +39,8 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                 onClick={() => setActiveChallenge(i)}
                 className={`w-full text-left p-6 rounded-xl border transition-all duration-300 group relative overflow-hidden ${
                   activeChallenge === i
-                    ? `bg-[#0D9488] border-[#0D9488] text-white shadow-md`
-                    : `bg-white ${theme.border} ${theme.text} hover:border-[#0D9488] hover:text-[#0D9488]`
+                    ? `bg-[#8c7355] border-[#8c7355] text-white shadow-md`
+                    : `bg-white ${theme.border} ${theme.text} hover:border-[#8c7355] hover:text-[#8c7355]`
                 }`}
               >
                 <div className="flex items-center justify-between relative z-10">
@@ -87,15 +87,11 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                     
                     {/* Placeholder for images or long content */}
                     <div className="mt-8 space-y-4">
-                      <div className={`w-full h-48 rounded-lg bg-[#F0FDFA] border ${theme.border} flex items-center justify-center`}>
+                      <div className={`w-full h-48 rounded-lg bg-[#fdfcf8] border ${theme.border} flex items-center justify-center`}>
                         <span className={`text-xs uppercase tracking-widest opacity-50 ${theme.muted}`}>Diagram / Code Snippet Placeholder</span>
                       </div>
                       <p className={`text-sm ${theme.muted}`}>
                         Additional technical details regarding the implementation could go here. This section is scrollable to accommodate detailed explanations, code blocks, or architectural diagrams that support the solution description.
-                      </p>
-                      {/* Extra content to demonstrate scrolling */}
-                      <p className={`text-sm ${theme.muted}`}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                       </p>
                     </div>
                   </div>
@@ -112,16 +108,16 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
               <button
                 onClick={() => setActiveChallenge(activeChallenge === i ? -1 : i)}
                 className={`w-full text-left p-6 flex items-center justify-between transition-colors ${
-                  activeChallenge === i ? 'bg-[#F0FDFA]' : 'bg-white'
+                  activeChallenge === i ? 'bg-[#8c7355] text-white' : 'bg-white'
                 }`}
               >
                 <div className="space-y-1">
-                  <span className={`text-[10px] uppercase tracking-widest block mb-1 ${theme.muted}`}>Challenge 0{i+1}</span>
-                  <h3 className={`text-lg font-medium font-sans ${activeChallenge === i ? theme.accent : theme.text}`}>
+                  <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : theme.muted}`}>Challenge 0{i+1}</span>
+                  <h3 className={`text-lg font-medium font-sans ${activeChallenge === i ? 'text-white' : theme.text}`}>
                     {challenge.issue}
                   </h3>
                 </div>
-                <ArrowRight className={`w-5 h-5 ${theme.accent} transition-transform duration-300 ${activeChallenge === i ? 'rotate-90' : ''}`} />
+                <ArrowRight className={`w-5 h-5 ${activeChallenge === i ? 'text-white' : theme.accent} transition-transform duration-300 ${activeChallenge === i ? 'rotate-90' : ''}`} />
               </button>
               
               <AnimatePresence>
@@ -132,7 +128,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className={`p-6 pt-0 border-t ${theme.border} bg-[#F0FDFA]`}>
+                    <div className={`p-6 pt-0 border-t ${theme.border} bg-[#fdfcf8]`}>
                       <div className="pt-6 space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
                         <span className={`text-[10px] uppercase tracking-widest ${theme.accent}`}>Solution</span>
                         <p className={`text-sm leading-relaxed ${theme.muted}`}>

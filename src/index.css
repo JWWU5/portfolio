@@ -6,11 +6,11 @@
   --font-cyber: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   
-  --color-bg: #F8FAFC; /* Slate 50 */
-  --color-ink: #1E293B; /* Slate 800 */
-  --color-accent: #0284C7; /* Sky 600 - Professional Blue */
-  --color-border: #E2E8F0; /* Slate 200 */
-  --color-muted: #64748B; /* Slate 500 */
+  --color-bg: #e5d3b3; /* Kraft Paper Base */
+  --color-ink: #4a3728; /* Darker Brown for text */
+  --color-accent: #8c7355; /* Gold/Brown */
+  --color-border: #d4c1a1; /* Slightly darker than bg */
+  --color-muted: #8c7355/70; /* Muted Gold */
 
   /* Typography Scale */
   --text-h1: 3.5rem; /* 56px */
@@ -34,6 +34,7 @@
 
   body {
     @apply bg-[var(--color-bg)] text-[var(--color-ink)] font-sans antialiased text-[length:var(--text-body)] leading-[var(--leading-body)] font-normal;
+    background-image: url("https://www.transparenttextures.com/patterns/cardboard-flat.png");
   }
 
   h1 {
