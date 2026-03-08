@@ -1,4 +1,11 @@
 import { Project } from "../types";
+import calibrationVideo from "../assets/calibration.mp4";
+import colorVideo from "../assets/color.mp4";
+import sagittalVideo from "../assets/sagittal.mp4";
+import visualisationVideo from "../assets/visualisation.mp4";
+import transverseImg from "../assets/transverse.png";
+import sagittalImg from "../assets/sagittal.png";
+
 
 export const PROJECTS: Project[] = [
   {
@@ -15,7 +22,57 @@ export const PROJECTS: Project[] = [
       },
       { 
         issue: "Mapping raw data to 3D Rotation", 
-        solution: "**Up-down movement**\n\n```csharp\nvoid UpDownMove() {\n    float moveDist = 0;\n    //int maxDistance = 35;\n    if (initialLeftDepth - leftDepth <= 0.02) {\n        moveDist = 0;\n    }\n    else {\n        moveDist = initialLeftDepth - averageDepth;\n        Vector3 originalPosition = transform.localPosition;\n        transform.localPosition = new Vector3(originalPosition.x, originalPosition.y, -moveDist * 0.005f);\n    }\n}\n```\n\n**A minimum threshold** is implemented to effectively filter out **baseline noise** and **sensor drift**, ensuring the system only triggers during user interaction.\n\n-------\n\n**Transverse rotation**\n\nThe ==_TransverseRotationDegree()_== function computes the transverse rotation of a single bone based on the difference in depth between the left and right side of the bone. The function uses the bone's length **L<sub>bone</sub>** as a scaling factor:\n\n:::side-by-side\n![Transverse Rotation](/src/asserts/transverse.png)\nOnly one side is pressed down:\n:::center-hl **θ = sin(D<sub>left</sub> or D<sub>right</sub> / L<sub>bone</sub>)** :::\nOtherwise, the rotation is computed based on the half distance:\n:::center-hl **θ = sin((D<sub>left</sub> + D<sub>right</sub>) / 2 * L<sub>bone</sub>)** :::\n:::\n\nOnce the rotation angle is calculated, the function determines the direction of rotation based on the relative value of **D<sub>left</sub>** and **D<sub>right</sub>**:\n- if **D<sub>left</sub> > D<sub>right</sub>**, the bone will rotate in the positive direction: **θ**,\n- if **D<sub>right</sub> > D<sub>left</sub>**, the bone will rotate in the opposite direction: **-θ**.\n\n-------\n\n**Sagittal Rotation**\n\nFirst, identify the **focus bone** in each unity frame (the pressure is applied on this bone, therefore sagittal rotation does not applied on it).\n\nThe next step is to calculate the rotation angle based on the relative position of the target bone to the focus bone:\n\n:::center-hl **θ = tan(D<sub>diff</sub> / D<sub>gap</sub>)** :::\n\n:::side-by-side\n![Sagittal Rotation](/src/asserts/sagittal.png)\n- **D<sub>diff</sub>**: represents the depth difference between the target bone and the focus bone.\n- **D<sub>gap</sub>**: is a constant used to scale the distance between the target bone and the focus bone.\n- **θ**: The bone's rotation direction is determined by comparing its ID to the focus bone's ID, rotating negatively (-θ) if its ID is smaller and positively (θ) if its ID is larger.\n:::" 
+        solution: `
+        **Up-down movement**
+
+        \`\`\`csharp
+        void UpDownMove() {
+            float moveDist = 0;
+            if (initialLeftDepth - leftDepth <= 0.02) {
+                moveDist = 0;
+            }
+            else {
+                moveDist = initialLeftDepth - averageDepth;
+                Vector3 originalPosition = transform.localPosition;
+                transform.localPosition = new Vector3(originalPosition.x, originalPosition.y, -moveDist * 0.005f);
+            }
+        }
+        \`\`\`
+
+        **A minimum threshold** is implemented to effectively filter out **baseline noise** and **sensor drift**, ensuring the system only triggers during user interaction.
+
+        ---
+
+        **Transverse Rotation**
+
+        The ==_TransverseRotationDegree()_== function function computes the transverse rotation of a single bone based on the difference in depth between the left and right side of the bone. The function uses the bone's length **L<sub>bone</sub>** as a scaling factor:
+        :::side-by-side
+        ![Transverse Rotation](${transverseImg})
+
+        - Only one side is pressed down:
+        ==_**θ = sin(D<sub>left</sub> or D<sub>right</sub> / L<sub>bone</sub>)**_==
+        - Both sides pressed:
+        ==_**θ = sin((D<sub>left</sub> + D<sub>right</sub>) / 2 * L<sub>bone</sub>)**_==
+        :::
+
+        If **D<sub>left</sub> > D<sub>right</sub>**, the bone rotates positively (**θ**); otherwise, it rotates negatively (**-θ**).
+
+        ---
+
+        **Sagittal Rotation**
+
+        First, identify the **focus bone** in each unity frame (the pressure is applied on this bone, therefore sagittal rotation does not applied on it).
+
+        The next step is to calculate the rotation angle based on the relative position of the target bone to the focus bone:
+
+        :::side-by-side
+        ![Sagittal Rotation](${sagittalImg})
+
+        - ==_**θ = arctan(D<sub>diff</sub> / D<sub>gap</sub>)**_==
+        - **Ddiff**: represents the depth difference between the target bone and the focus bone.
+        - **Dgap**: is a constant used to scale the distance between the target bone and the focus bone.
+        :::
+        `
       },
       {
         issue: "Real-time graph rendering",
@@ -56,11 +113,11 @@ export const PROJECTS: Project[] = [
     ],
     inspiration: "Traditional physiotherapy training relies on verbal feedback, while **internal bone movement remains invisible**. By integrating physical CPR training devices with a Unity-based MR application on Meta Quest 3, I designed a system that **visualises bone activities, and force data in real time**.",
     features: [
-      { title: "Calibration", detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model.", video: "/src/asserts/calibration.mp4" },
-      { title: "colour change", detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization.", video: "/src/asserts/colour.mp4" },
-      { title: "Transverse Rotation", detail: "Immersive feedback for rotational forces applied to the vertebral segments.", video: "/src/asserts/transverse.mp4" },
-      { title: "Sagittal Rotation", detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy.", video: "/src/asserts/sagittal.mp4" },
-      { title: "Pressure Visualisation", detail: "Dynamic heatmaps mapping sensor data to virtual bone surfaces in real-time.", video: "/src/assets/visualisation.mp4" }
+      { title: "Calibration", detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model.", video: calibrationVideo },
+      { title: "Stress Response", detail: "As a safety mechanism, the internal bone structure transitions to a vivid red hue if excessive pressure is detected.", video: colorVideo },
+      { title: "Transverse Rotation", detail: "Visual feedback for forces applied to the vertebral segments.", video: "/src/asserts/transverse.mp4" },
+      { title: "Sagittal Rotation", detail: "Visual feedback for forces applied to the sagittal segments.", video: sagittalVideo },
+      { title: "Pressure Visualisation", detail: "A dynamic graph allows users to compare their technique against expert benchmarks to refine precision.", video: visualisationVideo }
     ],
     future: [
       {
