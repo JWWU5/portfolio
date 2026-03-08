@@ -58,7 +58,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
       <SystemArchitecture project={project} theme={theme} />
       
       {/* 05. 技术挑战 (左侧列表，右侧详细方案) */}
-      <TechnicalChallenges project={project} theme={theme} />
+      <TechnicalChallenges project={project} theme={theme} renderBold={renderBold} />
       
       {/* 06. 未来展望 (翻转卡片) */}
       <FutureWork project={project} theme={theme} />

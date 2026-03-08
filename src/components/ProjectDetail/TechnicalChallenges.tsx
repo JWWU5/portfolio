@@ -6,10 +6,92 @@ import { Project } from '../../types';
 interface TechnicalChallengesProps {
   project: Project;
   theme: any;
+  renderBold: (text: string) => React.ReactNode[];
 }
 
-export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ project, theme }) => {
+export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ project, theme, renderBold }) => {
   const [activeChallenge, setActiveChallenge] = useState<number>(0);
+
+  const renderSolution = (text: string) => {
+    // Split by code blocks first
+    const parts = text.split(/(```csharp[\s\S]*?```)/g);
+    
+    return parts.map((part, i) => {
+      if (part.startsWith('```csharp') && part.endsWith('```')) {
+        const code = part.replace('```csharp', '').replace('```', '').trim();
+        return (
+          <div key={i} className="my-6 p-6 rounded-xl bg-white border border-[#e5e1d8] font-mono text-sm text-[#4a4a4a] overflow-x-auto shadow-sm">
+            <div className="flex items-center gap-2 mb-4 border-b border-[#e5e1d8] pb-2">
+              <div className="w-2 h-2 rounded-full bg-[#8c7355]/30" />
+              <div className="w-2 h-2 rounded-full bg-[#8c7355]/20" />
+              <div className="w-2 h-2 rounded-full bg-[#8c7355]/10" />
+              <span className="text-[10px] text-[#8c7355]/50 uppercase tracking-widest ml-2">C# Script</span>
+            </div>
+            <pre className="whitespace-pre-wrap leading-relaxed">
+              {code}
+            </pre>
+          </div>
+        );
+      }
+      
+      // Handle normal text with bold, italic, highlight, color and line breaks
+      return (
+        <div key={i} className="space-y-4">
+          {part.split('\n').map((line, j) => {
+            const trimmedLine = line.trim();
+            if (trimmedLine === '---' || trimmedLine === '-------') {
+              return <div key={j} className={`w-full h-px my-10 ${theme.border} opacity-80`} />;
+            }
+            
+            // Custom formatter for colors, highlights, italics
+            const formatLine = (content: string) => {
+              let elements: (string | React.ReactNode)[] = [content];
+              
+              // 1. Bold: **text**
+              elements = elements.flatMap(el => {
+                if (typeof el !== 'string') return el;
+                return el.split(/(\*\*.*?\*\*)/g).map((p, idx) => 
+                  p.startsWith('**') && p.endsWith('**') ? <strong key={idx} className="font-bold text-[#4a4a4a]">{p.slice(2, -2)}</strong> : p
+                );
+              });
+
+              // 2. Highlight + Italic: ==_text_==
+              elements = elements.flatMap(el => {
+                if (typeof el !== 'string') return el;
+                return el.split(/(==_.*?_==)/g).map((p, idx) => 
+                  p.startsWith('==_') && p.endsWith('_==') ? <span key={idx} className="bg-yellow-100 px-1 italic border-b border-yellow-300 text-[#4a4a4a]">{p.slice(3, -3)}</span> : p
+                );
+              });
+
+              // 3. Blue line: (blue line)
+              elements = elements.flatMap(el => {
+                if (typeof el !== 'string') return el;
+                return el.split(/(\(blue line\))/g).map((p, idx) => 
+                  p === '(blue line)' ? <span key={idx} className="text-blue-600 font-medium">blue line</span> : p
+                );
+              });
+
+              // 4. Green line: (green line)
+              elements = elements.flatMap(el => {
+                if (typeof el !== 'string') return el;
+                return el.split(/(\(green line\))/g).map((p, idx) => 
+                  p === '(green line)' ? <span key={idx} className="text-emerald-600 font-medium">green line</span> : p
+                );
+              });
+
+              return elements;
+            };
+
+            return (
+              <p key={j} className={`text-base leading-relaxed text-[#4a4a4a]`}>
+                {formatLine(line)}
+              </p>
+            );
+          })}
+        </div>
+      );
+    });
+  };
 
   return (
     <section className={`flex flex-col justify-center py-20 border-t ${theme.border} relative z-10 mx-4 sm:mx-8`}>
@@ -72,28 +154,15 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
               >
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <span className={`text-[10px] uppercase tracking-widest ${theme.accent}`}>The Solution</span>
-                    <h3 className={`text-2xl font-medium font-sans ${theme.text}`}>
-                      Addressing: {project.challenges[activeChallenge].issue}
+                    <h3 className={`text-3xl font-medium font-sans ${theme.text}`}>
+                      Solution
                     </h3>
                   </div>
                   
                   <div className={`w-full h-px ${theme.border}`} />
                   
                   <div className="max-w-none">
-                    <p className={`text-base leading-relaxed ${theme.muted}`}>
-                      {project.challenges[activeChallenge].solution}
-                    </p>
-                    
-                    {/* Placeholder for images or long content */}
-                    <div className="mt-8 space-y-4">
-                      <div className={`w-full h-48 rounded-lg bg-[#fdfcf8] border ${theme.border} flex items-center justify-center`}>
-                        <span className={`text-xs uppercase tracking-widest opacity-50 ${theme.muted}`}>Diagram / Code Snippet Placeholder</span>
-                      </div>
-                      <p className={`text-sm ${theme.muted}`}>
-                        Additional technical details regarding the implementation could go here. This section is scrollable to accommodate detailed explanations, code blocks, or architectural diagrams that support the solution description.
-                      </p>
-                    </div>
+                    {renderSolution(project.challenges[activeChallenge].solution)}
                   </div>
                 </div>
               </motion.div>
@@ -131,11 +200,8 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                     <div className={`p-6 pt-0 border-t ${theme.border} bg-[#fdfcf8]`}>
                       <div className="pt-6 space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
                         <span className={`text-[10px] uppercase tracking-widest ${theme.accent}`}>Solution</span>
-                        <p className={`text-sm leading-relaxed ${theme.muted}`}>
-                          {challenge.solution}
-                        </p>
-                        <div className={`w-full h-32 rounded-lg bg-white border ${theme.border} flex items-center justify-center`}>
-                          <span className={`text-[10px] uppercase tracking-widest opacity-50 ${theme.muted}`}>Visual Placeholder</span>
+                        <div className="space-y-4">
+                          {renderSolution(challenge.solution)}
                         </div>
                       </div>
                     </div>

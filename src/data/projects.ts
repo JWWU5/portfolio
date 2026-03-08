@@ -11,7 +11,7 @@ export const PROJECTS: Project[] = [
     challenges: [
       { 
         issue: "Aligning virtual and physical devices", 
-        solution: "Developed a low-latency calibration system that aligns the virtual 'vARtebra' model with the physical 'SpinalLog' device within 2mm accuracy. This involved creating a custom calibration algorithm that accounts for the physical dimensions of the device and the virtual space of the headset." 
+        solution: "To begin the calibration process, users generate a virtual cube that represents the internal spine model. This interaction is triggered using **a pinch gesture with the right hand**.\n\nThe gesture is detected through the **OVRInput API**, where the pinch action is mapped to Button.One. When the gesture is detected, the system retrieves the current position of the user’s right hand and spawns the virtual cube at that location.\n\n```csharp\nOVRInput.GetDown(OVRInput.Button.One) // detect the pinch gesture event\nOVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) // retrieve the real-time position of the user's right hand\n```\n\nBy combining these two inputs, the system ensures that the virtual object appears exactly where the gesture occurs.\n\n---\n\nThe grab interaction of the cube is controlled by accessing the **HandGrab** component:\n\n```csharp\ncube.transform.Find(\"[BuildingBlock] HandGrab\")\n```\n\nThis line locates the HandGrab object attached to the cube, allowing the system to **enable or disable the grab interaction**. When disabled, the cube becomes fixed in space and can no longer be moved by the user." 
       },
       { 
         issue: "Mapping raw data to 3D Rotation", 
@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
       },
       {
         issue: "Real-time graph rendering",
-        solution: "Engineered a high-performance graph rendering system capable of visualizing force data in real-time without impacting the frame rate of the MR application. This allows students to see the immediate impact of their actions on the spine."
+        solution: "The graph was implemented using the **XCharts data visualisation library for Unity**, and displays two data streams:\n 1. Reference pattern (blue line): a predefined benchmark representing the ideal force pattern.\n\n```csharp\nLoadDataFromCSV(string path) //read\nexpertTrial.AddData(i-1, y) //write\n```\n\n==_LoadDataFromCSV(string path)_== is used to read a dataset of 1500 force values stored in CSV file and ==_expertTrial.AddData(i-1, y)_== dynamically plots each value on a graph, mapping the dataset index to the x-axis and the corresponding force.\n\n 2. User input (green line): real-time force data applied by the user during training.\n\nReal-time force data is received continuously from the **ESP32 microcontroller via Bluetooth**.\n\n```csharp\nstudentTrial.AddData(timer++, yaxis force)\n```\n\nThe system records the force values over time by using this method. To ensure stability during extended operation and prevent infinite graph scrolling, a minimum threshold is implemented to detect active pressure on the device."
       }
     ],
     hardware: ["SpinalLog (Physical Device)", "vARtebra (Haptic Model)", "Meta Quest 3", "Force Sensors"],
@@ -56,31 +56,11 @@ export const PROJECTS: Project[] = [
     ],
     inspiration: "Traditional physiotherapy training relies on verbal feedback, while **internal bone movement remains invisible**. By integrating physical CPR training devices with a Unity-based MR application on Meta Quest 3, I designed a system that **visualises bone activities, and force data in real time**.",
     features: [
-      { 
-        title: "Calibration", 
-        detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model.",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      { 
-        title: "Up-down Movement", 
-        detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization.",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      { 
-        title: "Transverse Rotation", 
-        detail: "Immersive feedback for rotational forces applied to the vertebral segments.",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      { 
-        title: "Sagittal Rotation", 
-        detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy.",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      { 
-        title: "Pressure Visualisation", 
-        detail: "A force-over-time graph visualizes how pressure changes throughout the interaction. Users can load different patterns or techniques and compare their input with ideal benchmarks, supporting iterative practice and skill refinement.",
-        videoUrl: "mr-visualisation.mp4"
-      }
+      { title: "Calibration", detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model." },
+      { title: "Up-down Movement", detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization." },
+      { title: "Transverse Rotation", detail: "Immersive feedback for rotational forces applied to the vertebral segments." },
+      { title: "Sagittal Rotation", detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy." },
+      { title: "Pressure Visualisation", detail: "Dynamic heatmaps mapping sensor data to virtual bone surfaces in real-time." }
     ],
     future: [
       {

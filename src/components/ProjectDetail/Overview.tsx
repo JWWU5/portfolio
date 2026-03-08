@@ -54,10 +54,6 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
             <p className="text-sm uppercase tracking-widest">{project.category}</p>
           </div>
           <div className="space-y-2">
-            <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Tech Stack</span>
-            <p className="text-sm uppercase tracking-widest">Mixed Reality / Unity / Meta Quest 3 / MedTech</p>
-          </div>
-          <div className="space-y-2">
             <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Year</span>
             <p className="text-sm uppercase tracking-widest">{project.year}</p>
           </div>
