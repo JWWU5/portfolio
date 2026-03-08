@@ -15,7 +15,7 @@ interface ProjectDetailProps {
 }
 
 export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
-  // Helper to render bold text from markdown-like syntax
+  // 辅助函数：将 markdown 风格的 **text** 渲染为加粗的金色文字
   const renderBold = (text: string) => {
     return text.split(/(\*\*.*?\*\*)/g).map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
@@ -25,12 +25,13 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
     });
   };
 
+  // 项目详情页的统一主题配置
   const theme = {
-    bg: 'bg-[#3d2b1f]', // Medium-Dark Aged Paper Base
-    text: 'text-[#e5d5b0]', // Light Kraft for text contrast
-    accent: 'text-[#c4a484]', // Lighter Tan for accents
-    border: 'border-[#4a3728]', // Darker Brown for borders
-    muted: 'text-[#c4a484]/70', // Muted Tan
+    bg: 'bg-[#fdfcf8]', // 暖白色背景 (Warm White)
+    text: 'text-[#4a4a4a]', // 深灰色文字 (Dark Gray)
+    accent: 'text-[#8c7355]', // 棕金色强调色 (Gold/Brown)
+    border: 'border-[#e5e1d8]', // 浅米色边框 (Light Beige)
+    muted: 'text-[#8c7355]/70', // 次要金色文字
     font: 'font-sans',
     mono: 'font-mono'
   };
@@ -42,28 +43,27 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.5 }}
-      className={`w-full min-h-screen ${theme.bg} ${theme.text} font-sans relative selection:bg-[#c4a484] selection:text-white`}
-      style={{
-        backgroundImage: `
-          url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
-          radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.5) 100%)
-        `,
-        backgroundBlendMode: 'overlay, multiply',
-        opacity: 0.98
-      }}
+      className={`w-full min-h-screen ${theme.bg} ${theme.text} font-sans relative selection:bg-[#8c7355] selection:text-white`}
     >
+      {/* 01. 英雄区块 (标题与返回按钮) */}
       <Hero project={project} onBack={onBack} theme={theme} />
       
+      {/* 02. 项目概览 (概念、交互与视频) */}
       <Overview project={project} theme={theme} renderBold={renderBold} />
       
+      {/* 03. 核心功能 (3D 轮播卡片) */}
       <KeyFeatures project={project} theme={theme} />
 
+      {/* 04. 系统架构 (硬件、通信、软件层级) */}
       <SystemArchitecture project={project} theme={theme} />
       
+      {/* 05. 技术挑战 (左侧列表，右侧详细方案) */}
       <TechnicalChallenges project={project} theme={theme} />
       
+      {/* 06. 未来展望 (翻转卡片) */}
       <FutureWork project={project} theme={theme} />
       
+      {/* 07. 个人反思 */}
       <Reflection project={project} theme={theme} />
 
     </motion.div>

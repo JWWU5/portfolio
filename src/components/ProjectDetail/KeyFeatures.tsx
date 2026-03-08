@@ -14,13 +14,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
   if (!project.features) return null;
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
-      className={`flex flex-col justify-center py-20 border-t ${theme.border} space-y-16 overflow-hidden relative z-10 mx-4 sm:mx-8`}
-    >
+    <section className={`flex flex-col justify-center py-20 border-t ${theme.border} space-y-16 overflow-hidden relative z-10 mx-4 sm:mx-8`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-4 w-full">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -38,7 +32,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
             <AnimatePresence mode="popLayout">
               {project.features.map((feature, i) => {
                 const n = project.features!.length;
-                // Calculate circular offset for a 5-item loop
+                // 计算 5 个项循环的圆周偏移量
                 const offset = ((i - activeFeature + n + Math.floor(n/2)) % n) - Math.floor(n/2);
                 const absOffset = Math.abs(offset);
                 
@@ -59,36 +53,19 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                       stiffness: 260,
                       damping: 26,
                     }}
-                    className="absolute top-1/2 -translate-y-1/2 w-[320px] md:w-[480px] aspect-[4/3] cursor-pointer group"
+                    className="absolute top-1/2 -translate-y-1/2 w-[280px] md:w-[360px] aspect-[3/4] cursor-pointer group"
                     onClick={() => setActiveFeature(i)}
                   >
                     <div className={`w-full h-full rounded-3xl overflow-hidden border transition-all duration-500 ${
                       absOffset === 0 ? `bg-white ${theme.border} shadow-2xl ring-1 ring-[#8c7355]/20` : `bg-[#f5f2ed] ${theme.border}`
                     }`}>
-                      <div className="h-2/3 relative overflow-hidden bg-black">
-                        {feature.videoUrl ? (
-                          <video
-                            src={feature.videoUrl}
-                            muted
-                            loop
-                            playsInline
-                            autoPlay={absOffset === 0}
-                            className={`w-full h-full object-cover transition-opacity duration-500 ${absOffset === 0 ? 'opacity-100' : 'opacity-40'}`}
-                            onMouseEnter={(e) => absOffset === 0 && e.currentTarget.play()}
-                            ref={(el) => {
-                              if (el) {
-                                if (absOffset === 0) el.play().catch(() => {});
-                                else el.pause();
-                              }
-                            }}
-                          />
-                        ) : (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className={`w-20 h-20 rounded-full border flex items-center justify-center transition-transform duration-700 border-[#8c7355]/20 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`}>
-                              <Play className={`w-6 h-6 text-[#8c7355] ${absOffset === 0 ? 'opacity-100' : 'opacity-20'}`} />
-                            </div>
+                      <div className="h-2/3 relative overflow-hidden bg-[#e5e1d8]">
+                        {/* 视觉占位图 */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className={`w-20 h-20 rounded-full border flex items-center justify-center transition-transform duration-700 border-[#8c7355]/20 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`}>
+                            <Play className={`w-6 h-6 text-[#8c7355] ${absOffset === 0 ? 'opacity-100' : 'opacity-20'}`} />
                           </div>
-                        )}
+                        </div>
                       </div>
                       
                       <div className="p-6 space-y-3">
@@ -123,6 +100,6 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
