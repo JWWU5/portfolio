@@ -60,7 +60,7 @@ export const PROJECTS: Project[] = [
       { title: "colour change", detail: "Real-time tracking and visualization of vertical spinal oscillations during mobilization.", video: "/src/asserts/colour.mp4" },
       { title: "Transverse Rotation", detail: "Immersive feedback for rotational forces applied to the vertebral segments.", video: "/src/asserts/transverse.mp4" },
       { title: "Sagittal Rotation", detail: "Visualizing flexion and extension movements with high-fidelity anatomical accuracy.", video: "/src/asserts/sagittal.mp4" },
-      { title: "Pressure Visualisation", detail: "Dynamic heatmaps mapping sensor data to virtual bone surfaces in real-time.", video: "/src/asserts/visualisation.mp4" }
+      { title: "Pressure Visualisation", detail: "Dynamic heatmaps mapping sensor data to virtual bone surfaces in real-time.", video: "/src/assets/visualisation.mp4" }
     ],
     future: [
       {
