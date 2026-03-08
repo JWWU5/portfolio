@@ -39,16 +39,16 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                 onClick={() => setActiveChallenge(i)}
                 className={`w-full text-left p-6 rounded-xl border transition-all duration-300 group relative overflow-hidden ${
                   activeChallenge === i
-                    ? `bg-[#8c7355] border-[#8c7355] text-white shadow-md`
+                    ? `bg-[#8c7355] border-[#8c7355] text-white shadow-lg`
                     : `bg-white ${theme.border} ${theme.text} hover:border-[#8c7355] hover:text-[#8c7355]`
                 }`}
               >
                 <div className="flex items-center justify-between relative z-10">
                   <div className="space-y-1">
-                    <span className="text-[10px] uppercase tracking-widest block mb-1 opacity-70">Challenge 0{i+1}</span>
-                    <h3 className="text-lg font-medium font-sans">{challenge.issue}</h3>
+                    <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : 'opacity-70'}`}>Challenge 0{i+1}</span>
+                    <h3 className={`text-lg font-medium font-sans ${activeChallenge === i ? 'text-white' : ''}`}>{challenge.issue}</h3>
                   </div>
-                  <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${activeChallenge === i ? 'translate-x-1' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
+                  <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${activeChallenge === i ? 'text-white translate-x-1' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
                 </div>
               </motion.button>
             ))}
