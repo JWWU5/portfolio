@@ -48,10 +48,10 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
         </div>
 
         {/* Category and Year Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8 mt-8">
+        <div className="flex flex-wrap gap-x-24 gap-y-8 pt-8 mt-8">
           <div className="space-y-2">
             <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Category</span>
-            <p className="text-sm uppercase tracking-widest">{project.category}</p>
+            <p className="text-sm uppercase tracking-widest whitespace-nowrap">{project.category}</p>
           </div>
           <div className="space-y-2">
             <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-bold`}>Year</span>

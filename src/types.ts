@@ -22,7 +22,7 @@ export interface Project {
     inspiration: string;
     goals: string;
   };
-  features?: { title: string; detail: string; videoUrl?: string }[];
+  features?: { title: string; detail: string; video?: string }[];
   evaluation?: string;
   future?: { title: string; content: string }[];
   reflection?: string;

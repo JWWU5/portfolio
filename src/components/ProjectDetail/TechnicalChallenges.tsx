@@ -13,23 +13,93 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
   const [activeChallenge, setActiveChallenge] = useState<number>(0);
 
   const renderSolution = (text: string) => {
-    // Split by code blocks first
-    const parts = text.split(/(```csharp[\s\S]*?```)/g);
+    // Split by code blocks, side-by-side blocks, and centered highlight blocks
+    const parts = text.split(/(```csharp[\s\S]*?```|:::side-by-side[\s\S]*?:::|:::center-hl[\s\S]*?:::)/g);
     
     return parts.map((part, i) => {
       if (part.startsWith('```csharp') && part.endsWith('```')) {
         const code = part.replace('```csharp', '').replace('```', '').trim();
         return (
-          <div key={i} className="my-6 p-6 rounded-xl bg-white border border-[#e5e1d8] font-mono text-sm text-[#4a4a4a] overflow-x-auto shadow-sm">
-            <div className="flex items-center gap-2 mb-4 border-b border-[#e5e1d8] pb-2">
+          <div key={i} className="my-6 p-6 rounded-xl bg-[#f0ede4] border border-[#d1cec3] font-mono text-sm text-[#4a4a4a] overflow-x-auto shadow-sm">
+            <div className="flex items-center gap-2 mb-4 border-b border-[#d1cec3] pb-2">
+              <div className="w-2 h-2 rounded-full bg-[#8c7355]/40" />
               <div className="w-2 h-2 rounded-full bg-[#8c7355]/30" />
               <div className="w-2 h-2 rounded-full bg-[#8c7355]/20" />
-              <div className="w-2 h-2 rounded-full bg-[#8c7355]/10" />
-              <span className="text-[10px] text-[#8c7355]/50 uppercase tracking-widest ml-2">C# Script</span>
+              <span className="text-[10px] text-[#8c7355]/60 uppercase tracking-widest ml-2">C# Script</span>
             </div>
             <pre className="whitespace-pre-wrap leading-relaxed">
               {code}
             </pre>
+          </div>
+        );
+      }
+
+      if (part.startsWith(':::center-hl') && part.endsWith(':::')) {
+        const content = part.replace(':::center-hl', '').replace(':::', '').trim();
+        return (
+          <div key={i} className="flex justify-center my-6">
+            <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-medium text-lg">
+              {formatLine(content)}
+            </span>
+          </div>
+        );
+      }
+
+      if (part.startsWith(':::side-by-side') && part.endsWith(':::')) {
+        const content = part.replace(':::side-by-side', '').replace(':::', '').trim();
+        const parts = content.split(/(:::center-hl[\s\S]*?:::)/g);
+        
+        // Find image line
+        let imgMatch: RegExpMatchArray | null = null;
+        const textParts: string[] = [];
+        
+        parts.forEach(p => {
+          if (p.startsWith(':::center-hl')) {
+            textParts.push(p);
+          } else {
+            const lines = p.split('\n');
+            lines.forEach(line => {
+              const m = line.trim().match(/!\[(.*?)\]\((.*?)\)/);
+              if (m) {
+                imgMatch = m;
+              } else if (line.trim()) {
+                textParts.push(line);
+              }
+            });
+          }
+        });
+
+        return (
+          <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start my-10">
+            <div className="rounded-xl overflow-hidden border border-[#e5e1d8] shadow-sm bg-[#fdfcf8]">
+              {imgMatch && (
+                <img 
+                  src={imgMatch[2]} 
+                  alt={imgMatch[1]} 
+                  className="w-full h-auto object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              )}
+            </div>
+            <div className="space-y-4">
+              {textParts.map((tp, idx) => {
+                if (tp.startsWith(':::center-hl')) {
+                  const subContent = tp.replace(':::center-hl', '').replace(':::', '').trim();
+                  return (
+                    <div key={idx} className="flex justify-center my-4">
+                      <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-medium">
+                        {formatLine(subContent)}
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={idx} className="text-base leading-relaxed text-[#4a4a4a]">
+                    {formatLine(tp)}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         );
       }
@@ -40,57 +110,134 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
           {part.split('\n').map((line, j) => {
             const trimmedLine = line.trim();
             if (trimmedLine === '---' || trimmedLine === '-------') {
-              return <div key={j} className={`w-full h-px my-10 ${theme.border} opacity-80`} />;
+              return <div key={j} className={`w-full h-px my-12 bg-[#d1cec3]`} />;
             }
             
-            // Custom formatter for colors, highlights, italics
-            const formatLine = (content: string) => {
-              let elements: (string | React.ReactNode)[] = [content];
-              
-              // 1. Bold: **text**
-              elements = elements.flatMap(el => {
-                if (typeof el !== 'string') return el;
-                return el.split(/(\*\*.*?\*\*)/g).map((p, idx) => 
-                  p.startsWith('**') && p.endsWith('**') ? <strong key={idx} className="font-bold text-[#4a4a4a]">{p.slice(2, -2)}</strong> : p
-                );
-              });
-
-              // 2. Highlight + Italic: ==_text_==
-              elements = elements.flatMap(el => {
-                if (typeof el !== 'string') return el;
-                return el.split(/(==_.*?_==)/g).map((p, idx) => 
-                  p.startsWith('==_') && p.endsWith('_==') ? <span key={idx} className="bg-yellow-100 px-1 italic border-b border-yellow-300 text-[#4a4a4a]">{p.slice(3, -3)}</span> : p
-                );
-              });
-
-              // 3. Blue line: (blue line)
-              elements = elements.flatMap(el => {
-                if (typeof el !== 'string') return el;
-                return el.split(/(\(blue line\))/g).map((p, idx) => 
-                  p === '(blue line)' ? <span key={idx} className="text-blue-600 font-medium">blue line</span> : p
-                );
-              });
-
-              // 4. Green line: (green line)
-              elements = elements.flatMap(el => {
-                if (typeof el !== 'string') return el;
-                return el.split(/(\(green line\))/g).map((p, idx) => 
-                  p === '(green line)' ? <span key={idx} className="text-emerald-600 font-medium">green line</span> : p
-                );
-              });
-
-              return elements;
-            };
-
             return (
-              <p key={j} className={`text-base leading-relaxed text-[#4a4a4a]`}>
+              <div key={j} className={`text-base leading-relaxed text-[#4a4a4a]`}>
                 {formatLine(line)}
-              </p>
+              </div>
             );
           })}
         </div>
       );
     });
+  };
+
+  // Move formatLine outside to be accessible by side-by-side block
+  const formatLine = (content: string) => {
+    let elements: (string | React.ReactNode)[] = [content];
+    
+    // 0. Images: ![alt](url)
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      return el.split(/(!\[.*?\]\(.*?\))/g).map((p, j) => {
+        const match = p.match(/!\[(.*?)\]\((.*?)\)/);
+        if (match) {
+          return (
+            <div key={`img-${i}-${j}`} className="my-8 rounded-xl overflow-hidden border border-[#e5e1d8] shadow-sm bg-[#fdfcf8]">
+              <img 
+                src={match[2]} 
+                alt={match[1]} 
+                className="w-full h-auto object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          );
+        }
+        return p;
+      });
+    });
+
+    // 1. Highlight + Italic: ==_text_== (Process early to allow nesting)
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      return el.split(/(==_.*?_==)/g).map((p, j) => 
+        p.startsWith('==_') && p.endsWith('_==') ? <span key={`hl-${i}-${j}`} className="bg-yellow-100 px-1 italic border-b border-yellow-300 text-[#4a4a4a]">{formatLine(p.slice(3, -3))}</span> : p
+      );
+    });
+
+    // 2. Bold: **text** (Process early to allow nesting)
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      return el.split(/(\*\*.*?\*\*)/g).map((p, j) => 
+        p.startsWith('**') && p.endsWith('**') ? <strong key={`bold-${i}-${j}`} className="font-bold text-[#4a4a4a]">{formatLine(p.slice(2, -2))}</strong> : p
+      );
+    });
+
+    // 3. Subscripts: <sub>text</sub>
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      return el.split(/(<sub>.*?<\/sub>)/g).map((p, j) => {
+        const match = p.match(/<sub>(.*?)<\/sub>/);
+        if (match) {
+          return <sub key={`sub-${i}-${j}`} className="text-[0.7em] align-baseline relative top-[0.2em]">{match[1]}</sub>;
+        }
+        return p;
+      });
+    });
+
+    // 4. Math symbols: $\theta$, $-\theta$
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      return el.split(/(\$-\s?\\theta\$|\$\\theta\$)/g).map((p, j) => {
+        if (p === '$\\theta$') return <span key={`math-${i}-${j}`} className="font-serif italic">θ</span>;
+        if (p === '$-\theta$' || p === '$- \\theta$') return <span key={`math-${i}-${j}`} className="font-serif italic">-θ</span>;
+        return p;
+      });
+    });
+
+    // 5. Blue marker: (blue)
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      // Handle (blue) at start or middle
+      return el.split(/(\(blue\))/g).map((p, j) => 
+        p === '(blue)' ? <span key={`blue-${i}-${j}`} className="text-blue-600 font-bold"></span> : p
+      );
+    }).filter(el => el !== '');
+
+    // 6. Green marker: (green)
+    elements = elements.flatMap((el, i) => {
+      if (typeof el !== 'string') return el;
+      // Handle (green) at start or middle
+      return el.split(/(\(green\))/g).map((p, j) => 
+        p === '(green)' ? <span key={`green-${i}-${j}`} className="text-emerald-600 font-bold"></span> : p
+      );
+    }).filter(el => el !== '');
+
+    // Re-process elements to apply color to the NEXT element if a marker was found
+    const coloredElements: React.ReactNode[] = [];
+    for (let k = 0; k < elements.length; k++) {
+      const current = elements[k];
+      if (React.isValidElement(current) && (current.key as string)?.startsWith('blue-')) {
+        const next = elements[k + 1];
+        if (typeof next === 'string') {
+          coloredElements.push(<span key={current.key} className="text-blue-600 font-bold">{next}</span>);
+          k++; // skip next
+        } else if (React.isValidElement(next)) {
+          // If next is an element (like strong), wrap it
+          coloredElements.push(<span key={current.key} className="text-blue-600">{next}</span>);
+          k++;
+        } else {
+          coloredElements.push(current);
+        }
+      } else if (React.isValidElement(current) && (current.key as string)?.startsWith('green-')) {
+        const next = elements[k + 1];
+        if (typeof next === 'string') {
+          coloredElements.push(<span key={current.key} className="text-emerald-600 font-bold">{next}</span>);
+          k++; // skip next
+        } else if (React.isValidElement(next)) {
+          coloredElements.push(<span key={current.key} className="text-emerald-600">{next}</span>);
+          k++;
+        } else {
+          coloredElements.push(current);
+        }
+      } else {
+        coloredElements.push(current as React.ReactNode);
+      }
+    }
+
+    return coloredElements;
   };
 
   return (
@@ -154,9 +301,9 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
               >
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <h3 className={`text-3xl font-medium font-sans ${theme.text}`}>
-                      Solution
-                    </h3>
+                    <span className={`text-[12px] uppercase tracking-widest ${theme.accent} font-bold`}>
+                      The Solution
+                    </span>
                   </div>
                   
                   <div className={`w-full h-px ${theme.border}`} />

@@ -11,13 +11,7 @@ export const Reflection: React.FC<ReflectionProps> = ({ project, theme }) => {
   if (!project.reflection) return null;
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
-      className={`flex flex-col justify-center py-20 border-t ${theme.border} relative z-10 mx-4 sm:mx-8`}
-    >
+    <section className={`flex flex-col justify-center py-20 border-t ${theme.border} relative z-10 mx-4 sm:mx-8`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         <div className="lg:col-span-4 space-y-8">
@@ -50,14 +44,32 @@ export const Reflection: React.FC<ReflectionProps> = ({ project, theme }) => {
             </div>
 
             <div className="pl-8 md:pl-12">
-              <p className={`text-lg leading-[32px] ${theme.text} whitespace-pre-line font-serif`}>
-                {project.reflection}
-              </p>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className={`text-lg leading-[32px] ${theme.text} whitespace-pre-line font-serif`}
+              >
+                {project.reflection.split('').map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.01,
+                      delay: i * 0.01,
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.p>
             </div>
           </motion.div>
         </div>
       </div>
       </div>
-    </motion.section>
+    </section>
   );
 };

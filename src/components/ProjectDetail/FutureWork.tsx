@@ -43,7 +43,7 @@ const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, in
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="h-[360px] perspective-[1000px] group cursor-pointer"
+      className="h-[280px] perspective-[1000px] group cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}
@@ -75,10 +75,6 @@ const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, in
             backfaceVisibility: 'hidden'
           }}
         >
-          <h3 className="text-lg mb-6 font-medium font-sans text-white">
-            {item.title}
-          </h3>
-          <div className="w-8 h-px mb-6 bg-[#8c7355]" />
           <p className="text-sm leading-relaxed text-[#fdfcf8]">
             {item.content}
           </p>

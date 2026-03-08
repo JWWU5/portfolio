@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
-import { ArrowRight, Mail, Github, Instagram, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { Routes, Route, useNavigate, useParams, useLocation, Navigate } from 'react-router-dom';
 import { PROJECTS } from "./data/projects";
 import { Home } from "./pages/Home";
 import { ProjectDetail } from "./components/ProjectDetail/ProjectDetail";
 import { FloatingHomeButton } from "./components/FloatingHomeButton";
 
+function ProjectDetailView({ onBack }: { onBack: () => void }) {
+  const { id } = useParams();
+  const project = PROJECTS.find(p => p.id === id);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  if (!project) return <Navigate to="/" replace />;
+  
+  return (
+    <>
+      <ProjectDetail 
+        project={project} 
+        onBack={onBack} 
+      />
+      <FloatingHomeButton onClick={onBack} />
+    </>
+  );
+}
+
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -16,22 +39,12 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const selectedProject = PROJECTS.find(p => p.id === selectedProjectId);
-
-  const handleBackToProjects = () => {
-    setSelectedProjectId(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleSelectProject = (id: string) => {
-    setSelectedProjectId(id);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  };
+  const isProjectDetail = location.pathname.startsWith('/project/');
 
   return (
-    <div className="min-h-screen text-[#4a4a4a] selection:bg-[#8c7355] selection:text-white">
+    <div className="min-h-screen bg-[#fdfcf8] text-[#4a4a4a] selection:bg-[#8c7355] selection:text-white">
       {/* Navigation */}
-      {!selectedProjectId && (
+      {!isProjectDetail && (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled 
             ? "bg-white/80 backdrop-blur-md py-4 shadow-sm border-b border-[#e5e1d8]" 
@@ -39,7 +52,7 @@ export default function App() {
         }`}>
           <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
             <button 
-              onClick={() => setSelectedProjectId(null)}
+              onClick={() => navigate('/')}
               className="text-xl tracking-[0.2em] font-serif uppercase cursor-pointer text-[#4a4a4a]"
             >
               Artisanal<span className="italic text-[#8c7355]">Tech</span>
@@ -58,17 +71,17 @@ export default function App() {
 
       <main>
         <AnimatePresence mode="wait">
-          {!selectedProjectId ? (
-            <Home onSelectProject={handleSelectProject} />
-          ) : (
-            <>
-              <ProjectDetail 
-                project={selectedProject!} 
-                onBack={handleBackToProjects} 
-              />
-              <FloatingHomeButton onClick={handleBackToProjects} />
-            </>
-          )}
+          <Routes location={location}>
+            <Route 
+              path="/" 
+              element={<Home onSelectProject={(id) => navigate(`/project/${id}`)} />} 
+            />
+            <Route 
+              path="/project/:id" 
+              element={<ProjectDetailView onBack={() => navigate('/')} />} 
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </AnimatePresence>
       </main>
     </div>

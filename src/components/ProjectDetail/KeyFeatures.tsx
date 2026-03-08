@@ -60,12 +60,22 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                       absOffset === 0 ? `bg-white ${theme.border} shadow-2xl ring-1 ring-[#8c7355]/20` : `bg-[#f5f2ed] ${theme.border}`
                     }`}>
                       <div className="h-2/3 relative overflow-hidden bg-[#e5e1d8]">
-                        {/* 视觉占位图 */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className={`w-20 h-20 rounded-full border flex items-center justify-center transition-transform duration-700 border-[#8c7355]/20 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`}>
-                            <Play className={`w-6 h-6 text-[#8c7355] ${absOffset === 0 ? 'opacity-100' : 'opacity-20'}`} />
+                        {feature.video ? (
+                          <video 
+                            src={feature.video}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className={`w-20 h-20 rounded-full border flex items-center justify-center transition-transform duration-700 border-[#8c7355]/20 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`}>
+                              <Play className={`w-6 h-6 text-[#8c7355] ${absOffset === 0 ? 'opacity-100' : 'opacity-20'}`} />
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                       
                       <div className="p-6 space-y-3">
