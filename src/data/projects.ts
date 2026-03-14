@@ -6,6 +6,7 @@ import visualisationVideo from "../assets/visualisation.mp4";
 import transverseVideo from "../assets/transverse.mp4";
 import transverseImg from "../assets/transverse.png";
 import sagittalImg from "../assets/sagittal.png";
+import virtualLandImg from "../assets/virtualland.png";
 
 
 export const PROJECTS: Project[] = [
@@ -142,7 +143,7 @@ export const PROJECTS: Project[] = [
     ],
     hardware: ["ESP32", "Force Sensors", "3D Printed Components", "Custom PCB"],
     software: ["Unity 3D", "Arduino IDE", "C++", "C#"],
-    image: "https://picsum.photos/seed/virtualland/1600/900",
+    image: virtualLandImg,
     category: "Unity / ESP32 / 3D Print / Arduino / Soldering",
     architecture: {
       nodes: [
