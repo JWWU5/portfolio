@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   year: string;
   description: string;
-  concept: string;
+  concept?: string;
   interaction: string;
   challenges: { issue: string; solution: string }[];
   hardware: string[];
@@ -31,4 +31,8 @@ export interface Project {
     steps: { title: string; detail: string }[];
   };
   videoUrl?: string;
+  publication?: {
+    name: string;
+    url: string;
+  };
 }

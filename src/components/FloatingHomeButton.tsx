@@ -35,7 +35,7 @@ export const FloatingHomeButton: React.FC<FloatingHomeButtonProps> = ({ onClick 
         </motion.div>
       </motion.div>
       <motion.span 
-        className="text-[10px] uppercase tracking-widest font-bold text-[#8c7355] bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-[#e5e1d8]"
+        className="text-[10px] uppercase tracking-widest font-normal text-[#8c7355] bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-[#e5e1d8]"
         variants={{
           hover: { opacity: 1, y: 0 },
           initial: { opacity: 0, y: 10 }

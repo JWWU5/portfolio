@@ -19,7 +19,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
   const renderBold = (text: string) => {
     return text.split(/(\*\*.*?\*\*)/g).map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} className="font-semibold text-[#8c7355]">{part.slice(2, -2)}</strong>;
+        return <strong key={i} className="font-normal text-[#8c7355]">{part.slice(2, -2)}</strong>;
       }
       return part;
     });
