@@ -38,7 +38,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
         const content = part.replace(':::center-hl', '').replace(':::', '').trim();
         return (
           <div key={i} className="flex justify-center my-6">
-            <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-normal text-lg">
+            <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-medium text-lg">
               {formatLine(content)}
             </span>
           </div>
@@ -87,7 +87,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                   const subContent = tp.replace(':::center-hl', '').replace(':::', '').trim();
                   return (
                     <div key={idx} className="flex justify-center my-4">
-                      <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-normal">
+                      <span className="bg-yellow-100 px-4 py-2 italic border-b-2 border-yellow-300 text-[#4a4a4a] font-medium">
                         {formatLine(subContent)}
                       </span>
                     </div>
@@ -161,7 +161,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
     elements = elements.flatMap((el, i) => {
       if (typeof el !== 'string') return el;
       return el.split(/(\*\*.*?\*\*)/g).map((p, j) => 
-        p.startsWith('**') && p.endsWith('**') ? <strong key={`bold-${i}-${j}`} className="font-normal text-[#4a4a4a]">{formatLine(p.slice(2, -2))}</strong> : p
+        p.startsWith('**') && p.endsWith('**') ? <strong key={`bold-${i}-${j}`} className="font-bold text-[#4a4a4a]">{formatLine(p.slice(2, -2))}</strong> : p
       );
     });
 
@@ -192,7 +192,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
       if (typeof el !== 'string') return el;
       // Handle (blue) at start or middle
       return el.split(/(\(blue\))/g).map((p, j) => 
-        p === '(blue)' ? <span key={`blue-${i}-${j}`} className="text-blue-600 font-normal"></span> : p
+        p === '(blue)' ? <span key={`blue-${i}-${j}`} className="text-blue-600 font-bold"></span> : p
       );
     }).filter(el => el !== '');
 
@@ -201,7 +201,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
       if (typeof el !== 'string') return el;
       // Handle (green) at start or middle
       return el.split(/(\(green\))/g).map((p, j) => 
-        p === '(green)' ? <span key={`green-${i}-${j}`} className="text-emerald-600 font-normal"></span> : p
+        p === '(green)' ? <span key={`green-${i}-${j}`} className="text-emerald-600 font-bold"></span> : p
       );
     }).filter(el => el !== '');
 
@@ -212,7 +212,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
       if (React.isValidElement(current) && (current.key as string)?.startsWith('blue-')) {
         const next = elements[k + 1];
         if (typeof next === 'string') {
-          coloredElements.push(<span key={current.key} className="text-blue-600 font-normal">{next}</span>);
+          coloredElements.push(<span key={current.key} className="text-blue-600 font-bold">{next}</span>);
           k++; // skip next
         } else if (React.isValidElement(next)) {
           // If next is an element (like strong), wrap it
@@ -224,7 +224,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
       } else if (React.isValidElement(current) && (current.key as string)?.startsWith('green-')) {
         const next = elements[k + 1];
         if (typeof next === 'string') {
-          coloredElements.push(<span key={current.key} className="text-emerald-600 font-normal">{next}</span>);
+          coloredElements.push(<span key={current.key} className="text-emerald-600 font-bold">{next}</span>);
           k++; // skip next
         } else if (React.isValidElement(next)) {
           coloredElements.push(<span key={current.key} className="text-emerald-600">{next}</span>);
@@ -248,7 +248,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-medium`}
           >
             04 Technical Challenges
           </motion.h2>
@@ -274,8 +274,8 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
               >
                 <div className="flex items-center justify-between relative z-10">
                   <div className="space-y-1">
-                    <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : 'opacity-70'}`}>Technical Challenge</span>
-                    <h3 className={`text-lg font-normal font-sans ${activeChallenge === i ? 'text-white' : ''}`}>{challenge.issue}</h3>
+                    <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : 'opacity-70'}`}>Challenge 0{i+1}</span>
+                    <h3 className={`text-lg font-medium font-sans ${activeChallenge === i ? 'text-white' : ''}`}>{challenge.issue}</h3>
                   </div>
                   <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${activeChallenge === i ? 'text-white translate-x-1' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
                 </div>
@@ -301,7 +301,7 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
               >
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <span className={`text-[12px] uppercase tracking-widest ${theme.accent} font-normal`}>
+                    <span className={`text-[12px] uppercase tracking-widest ${theme.accent} font-bold`}>
                       The Solution
                     </span>
                   </div>
@@ -328,8 +328,8 @@ export const TechnicalChallenges: React.FC<TechnicalChallengesProps> = ({ projec
                 }`}
               >
                 <div className="space-y-1">
-                  <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : theme.muted}`}>Technical Challenge</span>
-                  <h3 className={`text-lg font-normal font-sans ${activeChallenge === i ? 'text-white' : theme.text}`}>
+                  <span className={`text-[10px] uppercase tracking-widest block mb-1 ${activeChallenge === i ? 'text-white/70' : theme.muted}`}>Challenge 0{i+1}</span>
+                  <h3 className={`text-lg font-medium font-sans ${activeChallenge === i ? 'text-white' : theme.text}`}>
                     {challenge.issue}
                   </h3>
                 </div>

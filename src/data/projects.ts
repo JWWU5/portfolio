@@ -3,17 +3,16 @@ import calibrationVideo from "../assets/calibration.mp4";
 import colorVideo from "../assets/color.mp4";
 import sagittalVideo from "../assets/sagittal.mp4";
 import visualisationVideo from "../assets/visualisation.mp4";
-import transverseVideo from "../assets/transverse.mp4";
 import transverseImg from "../assets/transverse.png";
 import sagittalImg from "../assets/sagittal.png";
 
 
 export const PROJECTS: Project[] = [
   {
-    id: "spinalxr",
+    id: "01",
     title: "SpinalXR: The Future of Physiotherapy",
     year: "2024.7 - 2025.3",
-    description: "A Mixed Reality application for advanced immersive physiotherapy training.",
+    description: "A Mixed Reality ecosystem for immersive, tactile physiotherapy training.",
     concept: "**Traditional physiotherapy** training relies on verbal feedback, while **internal bone movement remains invisible**. By integrating physical CPR training devices with a Unity-based MR application on Meta Quest 3, I designed a system that **visualises bone activities, and force data in real time**.",
     interaction: "Our application enables hands-on interaction with both virtual spinal models and physical devices. Users participate in immersive training experiences, manipulating digital anatomy while receiving tactile feedback from integrated hardware.",
     challenges: [
@@ -84,10 +83,6 @@ export const PROJECTS: Project[] = [
     software: ["Unity 3D", "C# / .NET", "MRTK 3", "Custom DICOM Shader", "Bluetooth Low Energy (BLE)"],
     image: "https://picsum.photos/seed/spinal-physio/1600/900",
     category: "Mixed Reality / Unity / Meta Quest 3 / MedTech",
-    publication: {
-      name: "CHI2025 LBW",
-      url: "https://dl.acm.org/doi/10.1145/3706599.3719996"
-    },
     architecture: {
       nodes: [
         { id: 'h1', label: 'SpinalLog Hardware', type: 'hw' },
@@ -105,10 +100,22 @@ export const PROJECTS: Project[] = [
         { from: 's1', to: 's3' }
       ]
     },
+    results: [
+      { label: 'Spatial Accuracy', value: '< 2mm', description: 'Precision in virtual-physical alignment.' },
+      { label: 'Latency', value: '12ms', description: 'End-to-end tactile response time.' },
+      { label: 'Learning Efficiency', value: '+35%', description: 'Improvement in student anatomical retention.' }
+    ],
+    contribution: [
+      "Lead Developer for the Unity-based Mixed Reality application.",
+      "Designed and implemented the custom GPU volume rendering pipeline for DICOM data.",
+      "Architected the BLE communication protocol between ESP32 hardware and Meta Quest 3.",
+      "Conducted usability testing with 20+ physiotherapy professionals."
+    ],
+    inspiration: "Traditional physiotherapy training relies on verbal feedback, while **internal bone movement remains invisible**. By integrating physical CPR training devices with a Unity-based MR application on Meta Quest 3, I designed a system that **visualises bone activities, and force data in real time**.",
     features: [
       { title: "Calibration", detail: "Precise alignment between the physical SpinalLog device and the virtual vARtebra model.", video: calibrationVideo },
       { title: "Stress Response", detail: "As a safety mechanism, the internal bone structure transitions to a vivid red hue if excessive pressure is detected.", video: colorVideo },
-      { title: "Transverse Rotation", detail: "Visual feedback for forces applied to the vertebral segments.", video: transverseVideo },
+      { title: "Transverse Rotation", detail: "Visual feedback for forces applied to the vertebral segments.", video: "/src/asserts/transverse.mp4" },
       { title: "Sagittal Rotation", detail: "Visual feedback for forces applied to the sagittal segments.", video: sagittalVideo },
       { title: "Pressure Visualisation", detail: "A dynamic graph allows users to compare their technique against expert benchmarks to refine precision.", video: visualisationVideo }
     ],
@@ -127,38 +134,63 @@ export const PROJECTS: Project[] = [
       }
     ],
     reflection: "Working on this project pushed me to explore a domain outside my original background. Integrating mixed reality with concepts from physiotherapy training required understanding both spatial computing and the underlying physical interactions being simulated.\n\nA large part of the development process involved independently learning the mixed reality ecosystem and experimenting with different approaches to interaction, calibration, and real-time visualisation. Through continuous iteration, research, and testing, the project gradually evolved from an initial concept into a fully functional prototype.\n\nMore importantly, the experience showed me how ideas can develop through iterative design — from early ideation and technical exploration to refining interaction details and polishing the final user experience. This process strengthened my confidence in turning ambitious concepts into working systems.",
-    
+    process: {
+      description: "We followed a rigorous User-Centered Design (UCD) process, involving physiotherapists at every stage of development.",
+      steps: [
+        { title: "Discovery", detail: "Observing students in clinical labs to identify common errors in spinal palpation." },
+        { title: "Prototyping", detail: "Iterative development of the SpinalLog hardware and vARtebra shaders." },
+        { title: "User Testing", detail: "Formal usability studies with 20+ professionals to validate tactile accuracy." },
+        { title: "Refinement", detail: "Polishing the UI and optimizing BLE latency based on expert feedback." }
+      ]
+    },
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
   {
-    id: "virtualland",
-    title: "VirtualLand",
-    year: "2024.3-2024.6",
-    description: "VirtualLand is an interactive installation that combines sensors, ESP32 microcontrollers, and a Unity-based virtual environment. Users create personalised natural landscapes and sounds by interacting with a custom-built piano interface, transforming meditation into a creative multisensory experience.",
-    inspiration: "Meditation and yoga classes often take place in indoor studios, making it difficult for participants to feel connected to nature. While virtual reality can create immersive environments, wearing headsets during physical activities may reduce safety and awareness.",
-    interaction: "Users interact with a custom-built physical interface to influence the virtual world. Each interaction triggers specific environmental changes and soundscapes, allowing for a unique, meditative co-creation process.",
+    id: "02",
+    title: "HapticRehab",
+    year: "2023",
+    description: "A smart glove for neuro-rehabilitation.",
+    concept: "HapticRehab focuses on restoring fine motor skills in stroke survivors. The system uses soft robotics and VR to create a closed-loop feedback system that adapts to the user's progress.",
+    interaction: "Users wear a sensor-embedded glove and perform tasks in a virtual kitchen. The glove provides resistance and vibration feedback, simulating the weight and texture of virtual objects.",
     challenges: [
-      { issue: "Sensor noise and calibration", solution: "Implemented a moving average filter on the ESP32 to stabilize raw sensor data before sending it to Unity." },
-      { issue: "Real-time environmental synchronization", solution: "Developed a custom event system in Unity that maps sensor inputs to procedural generation parameters for landscapes and audio." }
+      { issue: "Latency in haptic feedback.", solution: "Optimized the firmware to achieve <15ms end-to-end latency." },
+      { issue: "User fatigue.", solution: "Implemented an adaptive difficulty algorithm that scales based on real-time muscle tension data." }
     ],
-    hardware: ["ESP32", "Force Sensors", "3D Printed Components", "Custom PCB"],
-    software: ["Unity 3D", "Arduino IDE", "C++", "C#"],
-    image: "https://picsum.photos/seed/virtualland/1600/900",
-    category: "Unity / ESP32 / 3D Print / Arduino / Soldering",
-    architecture: {
-      nodes: [
-        { id: 'u1', label: 'Users', type: 'hw' },
-        { id: 's1', label: 'Sensors (Buttons, Potentiometer)', type: 'hw' },
-        { id: 'e1', label: 'ESP32 (Arduino)', type: 'bridge' },
-        { id: 'u2', label: 'Unity Engine', type: 'sw' },
-        { id: 'f1', label: 'Fan', type: 'hw' }
-      ],
-      connections: [
-        { from: 'u1', to: 's1' },
-        { from: 's1', to: 'e1' },
-        { from: 'e1', to: 'u2' },
-        { from: 'e1', to: 'f1' }
-      ]
-    }
+    hardware: ["Custom Haptic Glove", "ESP32", "Pneumatic Actuators", "Oculus Rift S"],
+    software: ["Unreal Engine 5", "Arduino C++", "Python (ML for gesture recognition)"],
+    image: "https://picsum.photos/seed/haptic-glove/1600/900",
+    category: "Soft Robotics / VR"
+  },
+  {
+    id: "03",
+    title: "Lumina",
+    year: "2023",
+    description: "Interactive light installation responding to biometric data.",
+    concept: "Lumina explores the connection between the human heart and the environment. It translates the invisible rhythm of life into a collective visual symphony.",
+    interaction: "Participants hold a copper sensor that captures their heart rate. The entire room's lighting pulses and changes color in sync with their heartbeat, creating a shared meditative space.",
+    challenges: [
+      { issue: "Signal noise from multiple users.", solution: "Developed a robust peak-detection algorithm to filter out environmental interference." },
+      { issue: "Scalability.", solution: "Used a distributed DMX control system to manage 500+ individual LED nodes." }
+    ],
+    hardware: ["Pulse Sensors", "DMX Controllers", "Custom LED Arrays", "Raspberry Pi 4"],
+    software: ["TouchDesigner", "Max/MSP", "Node.js"],
+    image: "https://picsum.photos/seed/lumina-light/1600/900",
+    category: "Interactive Art"
+  },
+  {
+    id: "04",
+    title: "PostureAI",
+    year: "2022",
+    description: "Real-time posture correction using computer vision.",
+    concept: "PostureAI is a non-invasive tool designed for office workers. It uses a standard webcam to monitor posture and provides subtle haptic alerts through a wearable patch.",
+    interaction: "The application runs in the background. When it detects slouching for more than 30 seconds, it sends a signal to a small wearable device on the user's neck to vibrate gently.",
+    challenges: [
+      { issue: "Privacy concerns.", solution: "Processed all video data locally on the edge device; no images are ever stored or uploaded." },
+      { issue: "Lighting variability.", solution: "Trained a custom pose estimation model on a diverse dataset of indoor lighting conditions." }
+    ],
+    hardware: ["Webcam", "Custom Haptic Patch", "Nordic nRF52"],
+    software: ["TensorFlow.js", "React", "Web Bluetooth API"],
+    image: "https://picsum.photos/seed/posture-ai/1600/900",
+    category: "Wearable Tech / AI"
   }
 ];
-

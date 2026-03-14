@@ -19,7 +19,7 @@ export const Reflection: React.FC<ReflectionProps> = ({ project, theme }) => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-medium`}
           >
             06 Reflection
           </motion.h2>
