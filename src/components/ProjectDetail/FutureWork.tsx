@@ -18,7 +18,7 @@ export const FutureWork: React.FC<FutureWorkProps> = ({ project, theme }) => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-medium`}
+            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
           >
             05 Future Work
           </motion.h2>
@@ -60,8 +60,8 @@ const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, in
           className={`absolute inset-0 rounded-2xl border ${theme.border} bg-white p-8 flex flex-col items-center justify-center text-center shadow-sm group-hover:shadow-xl transition-shadow duration-300`}
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <span className={`text-[10px] uppercase tracking-widest mb-6 ${theme.accent}`}>Focus Area 0{index+1}</span>
-          <h3 className={`text-2xl font-medium font-sans ${theme.text}`}>
+          <span className={`text-[10px] uppercase tracking-widest mb-6 ${theme.accent}`}>Future Focus</span>
+          <h3 className={`text-2xl font-normal font-sans ${theme.text}`}>
             {item.title}
           </h3>
           <div className="absolute bottom-8 w-12 h-1 bg-[#8c7355]" />

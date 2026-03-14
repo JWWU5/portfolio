@@ -20,7 +20,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-medium`}
+          className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
         >
           02 Key Features
         </motion.h2>
@@ -80,7 +80,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                       
                       <div className="p-6 space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className={`${theme.accent} font-sans font-medium text-xl`}>0{i+1}</span>
+                          <span className={`${theme.accent} font-sans font-normal text-sm uppercase tracking-widest`}>{project.title.split(':')[0]}</span>
                           {absOffset === 0 && (
                             <motion.div 
                               initial={{ width: 0 }}
@@ -89,7 +89,7 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                             />
                           )}
                         </div>
-                        <h3 className={`text-xl transition-all duration-500 font-sans font-medium ${theme.text} ${absOffset === 0 ? 'translate-x-0' : 'translate-x-2 opacity-50'}`}>
+                        <h3 className={`text-xl transition-all duration-500 font-sans font-normal ${theme.text} ${absOffset === 0 ? 'translate-x-0' : 'translate-x-2 opacity-50'}`}>
                           {feature.title}
                         </h3>
                         {absOffset === 0 && (
