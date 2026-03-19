@@ -6,7 +6,6 @@ import visualisationVideo from "../assets/visualisation.mp4";
 import transverseVideo from "../assets/transverse.mp4";
 import transverseImg from "../assets/transverse.png";
 import sagittalImg from "../assets/sagittal.png";
-import virtualLandImg from "../assets/virtualland.png";
 
 
 export const PROJECTS: Project[] = [
@@ -143,7 +142,7 @@ export const PROJECTS: Project[] = [
     ],
     hardware: ["ESP32", "Force Sensors", "3D Printed Components", "Custom PCB"],
     software: ["Unity 3D", "Arduino IDE", "C++", "C#"],
-    image: virtualLandImg,
+    image: "https://picsum.photos/seed/virtualland/1600/900",
     category: "Unity / ESP32 / 3D Print / Arduino / Soldering",
     architecture: {
       nodes: [
@@ -158,6 +157,22 @@ export const PROJECTS: Project[] = [
         { from: 's1', to: 'e1' },
         { from: 'e1', to: 'u2' },
         { from: 'e1', to: 'f1' }
+      ]
+    },
+    buildingProgress: {
+      images: [
+        { url: "https://picsum.photos/seed/vl1/800/600", caption: "Initial prototype assembly" },
+        { url: "https://picsum.photos/seed/vl2/600/800", caption: "Soldering the custom PCB" },
+        { url: "https://picsum.photos/seed/vl3/800/800", caption: "3D printing the enclosure" },
+        { url: "https://picsum.photos/seed/vl4/800/600", caption: "Testing sensor responsiveness" },
+        { url: "https://picsum.photos/seed/vl5/600/800", caption: "Unity environment design" },
+        { url: "https://picsum.photos/seed/vl6/800/600", caption: "Integrating the physical fan" },
+        { url: "https://picsum.photos/seed/vl7/800/800", caption: "Wiring the ESP32" },
+        { url: "https://picsum.photos/seed/vl8/600/800", caption: "Debugging the communication protocol" },
+        { url: "https://picsum.photos/seed/vl9/800/600", caption: "Final assembly of the piano interface" },
+        { url: "https://picsum.photos/seed/vl10/800/800", caption: "First successful end-to-end test" },
+        { url: "https://picsum.photos/seed/vl11/600/800", caption: "Polishing the 3D printed parts" },
+        { url: "https://picsum.photos/seed/vl12/800/600", caption: "User testing session" }
       ]
     }
   }

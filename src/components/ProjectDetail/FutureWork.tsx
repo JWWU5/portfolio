@@ -11,20 +11,20 @@ export const FutureWork: React.FC<FutureWorkProps> = ({ project, theme }) => {
   if (!project.future) return null;
 
   return (
-    <section className={`flex flex-col justify-center py-20 border-t ${theme.border} relative z-10 mx-4 sm:mx-8`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12 w-full">
+    <section className={`flex flex-col justify-center py-24 border-t-2 ${theme.border} relative z-10 mx-4 sm:mx-8`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-16 w-full">
         <div className="space-y-4">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+            className={`text-xs uppercase tracking-[0.3em] ${theme.accent} font-black font-mono`}
           >
-            05 Future Work
+            [ 07 Future Work ]
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {project.future.map((item, i) => (
             <FlipCard key={i} item={item} index={i} theme={theme} />
           ))}
@@ -43,7 +43,7 @@ const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, in
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="h-[280px] perspective-[1000px] group cursor-pointer"
+      className="h-[320px] perspective-[1000px] group cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}
@@ -57,25 +57,25 @@ const FlipCard: React.FC<{ item: any, index: number, theme: any }> = ({ item, in
       >
         {/* Front Face (Focus Area) */}
         <div 
-          className={`absolute inset-0 rounded-2xl border ${theme.border} bg-white p-8 flex flex-col items-center justify-center text-center shadow-sm group-hover:shadow-xl transition-shadow duration-300`}
+          className={`absolute inset-0 rounded-3xl border ${theme.border} bg-white p-10 flex flex-col items-center justify-center text-center shadow-sm group-hover:shadow-xl transition-all duration-500`}
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <span className={`text-[10px] uppercase tracking-widest mb-6 ${theme.accent}`}>Future Focus</span>
-          <h3 className={`text-2xl font-normal font-sans ${theme.text}`}>
+          <span className={`text-[10px] uppercase tracking-[0.2em] mb-8 font-medium font-mono ${theme.accent}`}>Future Focus</span>
+          <h3 className={`text-3xl font-serif font-light tracking-tight leading-tight ${theme.text}`}>
             {item.title}
           </h3>
-          <div className="absolute bottom-8 w-12 h-1 bg-[#8c7355]" />
+          <div className={`absolute bottom-10 w-12 h-0.5 bg-[#8c7355]/30`} />
         </div>
 
-        {/* Back Face (Solution) - Brown Theme */}
+        {/* Back Face (Solution) - Black Theme */}
         <div 
-          className="absolute inset-0 rounded-2xl p-8 flex flex-col items-center justify-center text-center bg-[#8c7355] border border-[#8c7355]"
+          className="absolute inset-0 rounded-3xl p-10 flex flex-col items-center justify-center text-center bg-[#1a1a1a] border border-white/10 shadow-2xl"
           style={{ 
             transform: 'rotateY(180deg)',
             backfaceVisibility: 'hidden'
           }}
         >
-          <p className="text-sm leading-relaxed text-[#fdfcf8]">
+          <p className="text-lg leading-relaxed text-white/90 font-light italic">
             {item.content}
           </p>
         </div>

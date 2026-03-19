@@ -15,13 +15,13 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
   return (
     <>
       <section className={`flex flex-col justify-center pb-12 max-w-7xl mx-auto px-4 sm:px-8 relative z-10`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start border-b border-black pb-12">
           <div className="lg:col-span-7 space-y-12">
             <div className="space-y-8">
-              <p className={`text-lg leading-relaxed ${theme.muted}`}>{renderBold(project.inspiration || project.concept)}</p>
-              <p className={`italic font-normal ${theme.text} border-l-2 border-[#8c7355] pl-8 py-2`}>
+              <p className={`text-xl leading-relaxed font-medium ${theme.text}`}>{renderBold(project.inspiration || project.concept)}</p>
+              <div className={`italic font-normal ${theme.text} border-l-4 border-[#8c7355] pl-8 py-4 bg-[#8c7355]/5`}>
                 {project.interaction}
-              </p>
+              </div>
             </div>
           </div>
 
@@ -30,7 +30,7 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
               <motion.div 
                 whileHover={{ y: -10 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className={`relative aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] cursor-pointer group`}
+                className={`relative aspect-video rounded-2xl overflow-hidden shadow-xl cursor-pointer group`}
                 onClick={() => setIsVideoOpen(true)}
               >
                 <iframe 
@@ -49,7 +49,7 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
               <motion.div 
                 whileHover={{ y: -10 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className={`relative aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] group`}
+                className={`relative aspect-video rounded-2xl overflow-hidden shadow-xl group`}
               >
                 <img 
                   src={project.image} 
@@ -63,24 +63,24 @@ export const Overview: React.FC<OverviewProps> = ({ project, theme, renderBold }
         </div>
 
         {/* Category and Year Row */}
-        <div className="flex flex-wrap gap-x-24 gap-y-8 pt-8 mt-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8">
           <div className="space-y-2">
-            <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-normal`}>Category</span>
-            <p className="text-sm uppercase tracking-widest whitespace-nowrap">{project.category}</p>
+            <span className={`text-[10px] uppercase tracking-[0.2em] ${theme.accent} font-medium ${theme.mono}`}>Category</span>
+            <p className="text-sm uppercase tracking-widest font-medium">{project.category}</p>
           </div>
           <div className="space-y-2">
-            <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-normal`}>Year</span>
-            <p className="text-sm uppercase tracking-widest">{project.year}</p>
+            <span className={`text-[10px] uppercase tracking-[0.2em] ${theme.accent} font-medium ${theme.mono}`}>Year</span>
+            <p className="text-sm uppercase tracking-widest font-medium">{project.year}</p>
           </div>
           {project.publication && (
             <div className="space-y-2">
-              <span className={`text-[10px] uppercase tracking-widest ${theme.accent} font-normal`}>Publication</span>
+              <span className={`text-[10px] uppercase tracking-[0.2em] ${theme.accent} font-medium ${theme.mono}`}>Publication</span>
               <p className="text-sm uppercase tracking-widest">
                 <a 
                   href={project.publication.url} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="font-bold hover:text-[#8c7355] transition-colors underline underline-offset-4"
+                  className="font-medium hover:text-[#8c7355] transition-all"
                 >
                   {project.publication.name}
                 </a>

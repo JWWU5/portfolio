@@ -18,7 +18,7 @@ export const FloatingHomeButton: React.FC<FloatingHomeButtonProps> = ({ onClick 
       className="fixed bottom-12 right-8 z-50 flex flex-col items-center gap-2 group"
     >
       <motion.div 
-        className="w-16 h-16 bg-[#8c7355] rounded-[30%_70%_70%_30%/30%_30%_70%_70%] shadow-lg flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[#705c44] group-hover:shadow-xl group-hover:rounded-[50%_50%_50%_50%/50%_50%_50%_50%]"
+        className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full border border-white/30 shadow-2xl flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[#8c7355] group-hover:scale-110"
         variants={{
           hover: { y: -5 }
         }}
@@ -31,11 +31,11 @@ export const FloatingHomeButton: React.FC<FloatingHomeButtonProps> = ({ onClick 
             }
           }}
         >
-          <Dog className="w-7 h-7" />
+          <Dog className="w-6 h-6" />
         </motion.div>
       </motion.div>
       <motion.span 
-        className="text-[10px] uppercase tracking-widest font-normal text-[#8c7355] bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-[#e5e1d8]"
+        className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#8c7355] bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg border border-[#e5e1d8]"
         variants={{
           hover: { opacity: 1, y: 0 },
           initial: { opacity: 0, y: 10 }

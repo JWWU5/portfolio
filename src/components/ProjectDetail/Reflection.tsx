@@ -11,44 +11,43 @@ export const Reflection: React.FC<ReflectionProps> = ({ project, theme }) => {
   if (!project.reflection) return null;
 
   return (
-    <section className={`flex flex-col justify-center py-20 border-t ${theme.border} relative z-10 mx-4 sm:mx-8`}>
+    <section className={`flex flex-col justify-center py-24 border-t-2 ${theme.border} relative z-10 mx-4 sm:mx-8`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
         <div className="lg:col-span-4 space-y-8">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+            className={`text-xs uppercase tracking-[0.3em] ${theme.accent} font-black font-mono`}
           >
-            06 Reflection
+            [ 08 Reflection ]
           </motion.h2>
         </div>
         <div className="lg:col-span-8">
           <motion.div 
-            initial={{ opacity: 0, rotate: 0 }}
-            whileInView={{ opacity: 1, rotate: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`relative bg-white p-8 md:p-12 shadow-lg border ${theme.border} max-w-3xl mx-auto`}
+            className={`relative bg-white p-12 md:p-16 border ${theme.border} shadow-sm max-w-3xl mx-auto rounded-3xl overflow-hidden`}
             style={{
-              backgroundImage: 'repeating-linear-gradient(transparent, transparent 31px, #e5e1d8 31px, #e5e1d8 32px)',
+              backgroundImage: 'repeating-linear-gradient(transparent, transparent 31px, rgba(140,115,85,0.05) 31px, rgba(140,115,85,0.05) 32px)',
               backgroundAttachment: 'local'
             }}
           >
-            {/* Paper holes */}
-            <div className={`absolute top-0 left-4 md:left-8 bottom-0 w-8 border-r-2 border-double ${theme.border}/50 flex flex-col justify-evenly py-4`}>
-              {[...Array(10)].map((_, i) => (
-                <div key={i} className="w-3 h-3 rounded-full bg-[#fdfcf8] shadow-inner mb-8 mx-auto" />
-              ))}
-            </div>
+            {/* Technical grid markers */}
+            <div className={`absolute top-0 left-0 bottom-0 w-1 bg-[#8c7355]/5`} />
+            <div className={`absolute top-0 right-0 bottom-0 w-1 bg-[#8c7355]/5`} />
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-[#8c7355]/5`} />
+            <div className={`absolute bottom-0 left-0 right-0 h-1 bg-[#8c7355]/5`} />
 
-            <div className="pl-8 md:pl-12">
+            <div className="relative">
               <motion.p 
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className={`text-lg leading-[32px] ${theme.text} whitespace-pre-line font-serif`}
+                className={`text-xl leading-[40px] ${theme.text} whitespace-pre-line font-serif font-light italic`}
               >
                 {project.reflection.split('').map((char, i) => (
                   <motion.span
@@ -58,7 +57,7 @@ export const Reflection: React.FC<ReflectionProps> = ({ project, theme }) => {
                     viewport={{ once: true }}
                     transition={{
                       duration: 0.01,
-                      delay: i * 0.01,
+                      delay: i * 0.005,
                     }}
                   >
                     {char}

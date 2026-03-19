@@ -20,9 +20,9 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+          className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-medium ${theme.mono}`}
         >
-          02 Key Features
+          03 Key Features
         </motion.h2>
       </div>
       
@@ -57,9 +57,9 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                     onClick={() => setActiveFeature(i)}
                   >
                     <div className={`w-full h-full rounded-3xl overflow-hidden border transition-all duration-500 ${
-                      absOffset === 0 ? `bg-white ${theme.border} shadow-2xl ring-1 ring-[#8c7355]/20` : `bg-[#f5f2ed] ${theme.border}`
+                      absOffset === 0 ? `bg-white ${theme.border} shadow-xl` : `bg-white/50 ${theme.border}/20`
                     }`}>
-                      <div className="h-2/3 relative overflow-hidden bg-[#e5e1d8]">
+                      <div className="h-2/3 relative overflow-hidden bg-black/5">
                         {feature.video ? (
                           <video 
                             src={feature.video}
@@ -70,33 +70,31 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ project, theme }) => {
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className={`w-20 h-20 rounded-full border flex items-center justify-center transition-transform duration-700 border-[#8c7355]/20 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`}>
-                              <Play className={`w-6 h-6 text-[#8c7355] ${absOffset === 0 ? 'opacity-100' : 'opacity-20'}`} />
-                            </div>
+                          <div className="absolute inset-0 flex items-center justify-center text-[#8c7355]/20">
+                            <Play className={`w-12 h-12 transition-transform duration-700 ${absOffset === 0 ? 'scale-110' : 'scale-90'}`} />
                           </div>
                         )}
                       </div>
                       
                       <div className="p-6 space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className={`${theme.accent} font-sans font-normal text-sm uppercase tracking-widest`}>{project.title.split(':')[0]}</span>
+                          <span className={`${theme.accent} font-mono text-[10px] uppercase tracking-widest`}>{project.title.split(':')[0]}</span>
                           {absOffset === 0 && (
                             <motion.div 
                               initial={{ width: 0 }}
-                              animate={{ width: 30 }}
-                              className="h-px bg-[#8c7355]"
+                              animate={{ width: 40 }}
+                              className="h-0.5 bg-[#8c7355]"
                             />
                           )}
                         </div>
-                        <h3 className={`text-xl transition-all duration-500 font-sans font-normal ${theme.text} ${absOffset === 0 ? 'translate-x-0' : 'translate-x-2 opacity-50'}`}>
+                        <h3 className={`text-xl transition-all duration-500 font-medium ${theme.text} ${absOffset === 0 ? 'translate-x-0' : 'translate-x-2 opacity-50'}`}>
                           {feature.title}
                         </h3>
                         {absOffset === 0 && (
                           <motion.p 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className={`text-xs font-light leading-relaxed ${theme.muted}`}
+                            className={`text-sm font-light leading-relaxed ${theme.muted}`}
                           >
                             {feature.detail}
                           </motion.p>

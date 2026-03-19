@@ -20,9 +20,9 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({ project,
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-[24px] uppercase tracking-[0.2em] ${theme.accent} font-normal`}
+            className={`text-[10px] uppercase tracking-[0.3em] ${theme.accent} font-mono`}
           >
-            03 System Architecture
+            05 System Architecture
           </motion.h2>
         </div>
 
@@ -38,7 +38,7 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({ project,
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-12 rounded-3xl border bg-white ${theme.border} shadow-sm`}
+            className={`p-12 rounded-3xl border bg-white ${theme.border} shadow-xl`}
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {['hw', 'bridge', 'sw'].map((type, i) => (
@@ -55,8 +55,8 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({ project,
                   </span>
                   <div className="space-y-3">
                     {project.architecture?.nodes.filter(n => n.type === type).map(node => (
-                      <div key={node.id} className={`p-4 rounded-xl border bg-[#f5f2ed] ${theme.border} ${theme.text} text-sm font-normal flex items-center gap-3 hover:bg-[#e5e1d8] transition-colors duration-300`}>
-                        <div className={`w-1.5 h-1.5 rounded-full bg-[#8c7355]`} />
+                      <div key={node.id} className={`p-4 rounded-xl border ${theme.border} bg-white ${theme.text} text-sm font-light flex items-center gap-3 hover:bg-[#8c7355]/5 transition-colors group`}>
+                        <div className={`w-2 h-2 rounded-full bg-[#8c7355] group-hover:scale-125 transition-transform`} />
                         {node.label}
                       </div>
                     ))}
@@ -87,7 +87,7 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" fill="#8c7355" />
+            <polygon points="0 0, 10 3.5, 0 7" fill="#000000" />
           </marker>
         </defs>
         
@@ -99,7 +99,7 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
           transition={{ duration: 1, delay: 0.5 }}
           x1="200" y1="365" x2="200" y2="220" stroke="#8c7355" strokeWidth="2" markerEnd="url(#arrowhead)" 
         />
-        <text x="215" y="295" className={`text-[11px] fill-[#8c7355] font-sans uppercase tracking-widest font-medium`}>interact with</text>
+        <text x="215" y="295" className={`text-[11px] fill-[#8c7355] font-mono uppercase tracking-widest`}>interact with</text>
 
         {/* Sensors to ESP32 */}
         <motion.line 
@@ -118,7 +118,7 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
           transition={{ duration: 1, delay: 1.1 }}
           d="M590 170 L750 170" stroke="#8c7355" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" 
         />
-        <text x="615" y="160" className={`text-[11px] fill-[#8c7355] font-sans uppercase tracking-widest font-medium`}>send message</text>
+        <text x="615" y="160" className={`text-[11px] fill-[#8c7355] font-mono uppercase tracking-widest`}>send message</text>
 
         {/* ESP32 to Fan */}
         <motion.path 
@@ -128,7 +128,7 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
           transition={{ duration: 1, delay: 1.4 }}
           d="M500 220 L500 410 L750 410" stroke="#8c7355" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" 
         />
-        <text x="515" y="400" className={`text-[11px] fill-[#8c7355] font-sans uppercase tracking-widest font-medium`}>send message</text>
+        <text x="515" y="400" className={`text-[11px] fill-[#8c7355] font-mono uppercase tracking-widest`}>send message</text>
       </svg>
 
       {/* Input Group */}
@@ -136,17 +136,17 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="absolute top-[70px] left-[100px] w-[220px] h-[170px] border-2 border-dashed border-[#8c7355]/30 rounded-2xl bg-[#fdfcf8]/50"
+        className="absolute top-[70px] left-[100px] w-[220px] h-[170px] border-2 border-dashed border-[#8c7355]/20 rounded-3xl bg-[#8c7355]/5"
       >
-        <span className={`absolute -top-7 left-2 font-bold ${theme.accent} text-[10px] uppercase tracking-[0.2em]`}>Input Layer</span>
+        <span className={`absolute -top-7 left-2 font-mono ${theme.accent} text-[10px] uppercase tracking-widest`}>Input Layer</span>
         <motion.div 
           onMouseEnter={() => setHoveredId('sensors')}
           onMouseLeave={() => setHoveredId(null)}
-          whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(140, 115, 85, 0.15)" }}
-          className="absolute inset-4 rounded-xl border border-[#8c7355]/20 bg-white flex flex-col items-center justify-center text-center p-4 shadow-sm transition-colors hover:border-[#8c7355]/50 group cursor-help"
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="absolute inset-4 rounded-2xl border bg-white flex flex-col items-center justify-center text-center p-4 shadow-lg transition-all hover:shadow-xl group cursor-help"
         >
-          <span className={`font-medium ${theme.text} text-lg tracking-tight group-hover:text-[#8c7355] transition-colors`}>Sensors</span>
-          <span className={`text-[10px] ${theme.muted} mt-2 font-light italic`}>(Buttons, Potentiometer)</span>
+          <span className={`font-medium text-lg tracking-tight ${theme.text}`}>Sensors</span>
+          <span className={`text-[10px] mt-2 font-mono italic ${theme.muted}`}>(Buttons, Potentiometer)</span>
         </motion.div>
       </motion.div>
 
@@ -155,9 +155,9 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="absolute top-[365px] left-[125px] w-[160px] h-[90px] rounded-xl border border-[#8c7355]/20 bg-white flex items-center justify-center shadow-sm"
+        className="absolute top-[365px] left-[125px] w-[160px] h-[90px] rounded-2xl border bg-white flex items-center justify-center shadow-lg"
       >
-        <span className={`font-medium ${theme.text} text-lg tracking-tight`}>Users</span>
+        <span className={`font-medium text-lg tracking-tight ${theme.text}`}>Users</span>
       </motion.div>
 
       {/* ESP32 */}
@@ -167,14 +167,14 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        whileHover={{ scale: 1.1, y: -5, boxShadow: "0 25px 50px rgba(140, 115, 85, 0.2)" }}
-        className="absolute top-[120px] left-[410px] w-[180px] h-[100px] rounded-xl border-2 border-[#8c7355]/40 bg-[#fdfcf8] flex flex-col items-center justify-center text-center p-4 shadow-md transition-all hover:border-[#8c7355] group z-10 cursor-help"
+        whileHover={{ scale: 1.1, y: -5 }}
+        className="absolute top-[120px] left-[410px] w-[180px] h-[100px] rounded-2xl border bg-white flex flex-col items-center justify-center text-center p-4 shadow-xl transition-all hover:shadow-2xl group z-10 cursor-help"
       >
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#8c7355] rounded-full">
-          <span className="text-[8px] text-white font-bold uppercase tracking-widest">Controller</span>
+          <span className="text-[8px] text-white font-mono uppercase tracking-widest">Controller</span>
         </div>
-        <span className={`font-bold ${theme.text} text-xl tracking-tight group-hover:text-[#8c7355] transition-colors`}>ESP32</span>
-        <span className={`text-[10px] ${theme.muted} mt-2 font-light`}>(Arduino Framework)</span>
+        <span className={`font-medium text-xl tracking-tight ${theme.text}`}>ESP32</span>
+        <span className={`text-[10px] mt-2 font-mono ${theme.muted}`}>(Arduino Framework)</span>
       </motion.div>
 
       {/* Output Group */}
@@ -182,28 +182,28 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="absolute top-[70px] left-[690px] w-[280px] h-[420px] border-2 border-dashed border-[#8c7355]/30 rounded-2xl bg-[#fdfcf8]/50"
+        className="absolute top-[70px] left-[690px] w-[280px] h-[420px] border-2 border-dashed border-[#8c7355]/20 rounded-3xl bg-[#8c7355]/5"
       >
-        <span className={`absolute -top-7 right-2 font-bold ${theme.accent} text-[10px] uppercase tracking-[0.2em]`}>Output Layer</span>
+        <span className={`absolute -top-7 right-2 font-mono ${theme.accent} text-[10px] uppercase tracking-widest`}>Output Layer</span>
         
         {/* Unity */}
         <motion.div 
           onMouseEnter={() => setHoveredId('unity')}
           onMouseLeave={() => setHoveredId(null)}
-          whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(140, 115, 85, 0.15)" }}
-          className="absolute top-[60px] left-[65px] w-[150px] h-[90px] rounded-xl border border-[#8c7355]/20 bg-white flex items-center justify-center shadow-sm transition-colors hover:border-[#8c7355]/50 group cursor-help"
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="absolute top-[60px] left-[65px] w-[150px] h-[90px] rounded-2xl border bg-white flex items-center justify-center shadow-lg transition-all hover:shadow-xl group cursor-help"
         >
-          <span className={`font-medium ${theme.text} text-lg tracking-tight group-hover:text-[#8c7355] transition-colors`}>Unity Engine</span>
+          <span className={`font-medium text-lg tracking-tight ${theme.text}`}>Unity Engine</span>
         </motion.div>
 
         {/* Fan */}
         <motion.div 
           onMouseEnter={() => setHoveredId('fan')}
           onMouseLeave={() => setHoveredId(null)}
-          whileHover={{ scale: 1.05, y: -5, boxShadow: "0 20px 40px rgba(140, 115, 85, 0.15)" }}
-          className="absolute top-[270px] left-[65px] w-[150px] h-[90px] rounded-xl border border-[#8c7355]/20 bg-white flex items-center justify-center shadow-sm transition-colors hover:border-[#8c7355]/50 group cursor-help"
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="absolute top-[270px] left-[65px] w-[150px] h-[90px] rounded-2xl border bg-white flex items-center justify-center shadow-lg transition-all hover:shadow-xl group cursor-help"
         >
-          <span className={`font-medium ${theme.text} text-lg tracking-tight group-hover:text-[#8c7355] transition-colors`}>Physical Fan</span>
+          <span className={`font-medium text-lg tracking-tight ${theme.text}`}>Physical Fan</span>
         </motion.div>
       </motion.div>
 
@@ -216,15 +216,15 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             className="absolute bottom-[-40px] left-1/2 -translate-x-1/2 w-full max-w-[600px] z-[50] pointer-events-none"
           >
-            <div className="bg-white/90 backdrop-blur-md border border-[#8c7355]/30 rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#8c7355] animate-pulse" />
-                <span className={`text-[10px] uppercase tracking-[0.3em] ${theme.accent} font-bold`}>
+            <div className="bg-white/80 backdrop-blur-xl border border-[#8c7355]/20 rounded-3xl p-8 shadow-2xl flex flex-col items-center text-center space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-[1px] bg-[#8c7355]/30" />
+                <span className={`text-[10px] uppercase tracking-[0.4em] ${theme.accent} font-mono`}>
                   {hoveredId} Details
                 </span>
-                <div className="w-2 h-2 rounded-full bg-[#8c7355] animate-pulse" />
+                <div className="w-12 h-[1px] bg-[#8c7355]/30" />
               </div>
-              <p className={`text-sm leading-relaxed ${theme.text} font-light italic`}>
+              <p className={`text-lg leading-relaxed ${theme.text} font-light italic`}>
                 {descriptions[hoveredId]}
               </p>
               
@@ -232,10 +232,10 @@ const ArchitectureDiagram: React.FC<{ theme: any }> = ({ theme }) => {
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="w-full mt-4 p-4 rounded-xl bg-[#fdfcf8] border border-[#8c7355]/10"
+                  className="w-full mt-4 p-6 rounded-2xl bg-[#8c7355]/5 border border-[#8c7355]/10"
                 >
-                  <span className="text-[9px] uppercase tracking-widest text-[#8c7355]/60 mb-3 block">Circuit Schematic</span>
-                  <div className="relative w-full aspect-[2/1] bg-white rounded-lg border border-[#8c7355]/5 p-4 overflow-hidden">
+                  <span className="text-[10px] uppercase tracking-widest font-mono text-[#8c7355] mb-4 block">Circuit Schematic</span>
+                  <div className="relative w-full aspect-[2/1] bg-white rounded-xl border border-[#8c7355]/10 p-4 overflow-hidden">
                     {/* Simplified SVG Circuit Diagram based on user image */}
                     <svg viewBox="0 0 400 200" className="w-full h-full">
                       {/* ESP32 Main Box */}
