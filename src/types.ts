@@ -26,9 +26,6 @@ export interface Project {
   evaluation?: string;
   future?: { title: string; content: string }[];
   reflection?: string;
-  buildingProgress?: {
-    images: { url: string; caption?: string }[];
-  };
   process?: {
     description: string;
     steps: { title: string; detail: string }[];
